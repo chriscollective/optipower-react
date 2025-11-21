@@ -6,6 +6,10 @@ export function CurrentStatus({ capacity, totalFee, monthlyDetails }) {
   // 計算超約月份數
   const overMonths = monthlyDetails.filter((m) => m.overRate > 0).length;
 
+  // 計算基本費與超約費總和
+  const totalBaseFee = monthlyDetails.reduce((sum, m) => sum + m.baseFee, 0);
+  const totalPenaltyFee = monthlyDetails.reduce((sum, m) => sum + m.penaltyFee, 0);
+
   return (
     <Card title="目前契約狀況" className="mb-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -69,11 +73,27 @@ export function CurrentStatus({ capacity, totalFee, monthlyDetails }) {
             ))}
           </tbody>
           <tfoot>
-            <tr className="bg-gray-50 font-medium">
+            <tr className="bg-gray-50 font-medium border-b border-gray-200">
+              <td colSpan="2" className="py-2 px-2 text-right">
+                小計
+              </td>
+              <td className="text-right py-2 px-2">
+                {Math.round(totalBaseFee).toLocaleString()}
+              </td>
+              <td className="text-right py-2 px-2 text-red-600">
+                {totalPenaltyFee > 0 ? Math.round(totalPenaltyFee).toLocaleString() : '-'}
+              </td>
+              <td className="text-right py-2 px-2">
+                {Math.round(totalFee).toLocaleString()}
+              </td>
+            </tr>
+            <tr className="bg-blue-50 font-bold">
               <td colSpan="4" className="py-2 px-2 text-right">
                 年度總計
               </td>
-              <td className="text-right py-2 px-2">{Math.round(totalFee).toLocaleString()} 元</td>
+              <td className="text-right py-2 px-2 text-blue-700">
+                {Math.round(totalFee).toLocaleString()} 元
+              </td>
             </tr>
           </tfoot>
         </table>
