@@ -28,7 +28,7 @@ function App() {
       {/* 主內容區域 */}
       <div className="flex">
         {/* 左側固定側邊欄 */}
-        <div className="hidden lg:block fixed left-0 top-16 bottom-0 w-[40rem] p-4 overflow-y-auto">
+        <div className="hidden lg:block fixed left-0 top-[4.5rem] bottom-0 w-[40rem] p-4 overflow-y-auto">
           <Sidebar />
         </div>
 
