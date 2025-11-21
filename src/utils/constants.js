@@ -35,4 +35,4 @@ export const MONTH_NAMES = [
 
 // 搜尋範圍設定
 export const SEARCH_STEP = 1; // 搜尋步長 (kW)
-export const SEARCH_PADDING = 100; // 搜尋範圍擴展 (kW)
+export const SEARCH_PADDING = 30; // 搜尋範圍擴展 (kW)
