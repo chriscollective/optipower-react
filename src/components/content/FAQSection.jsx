@@ -23,20 +23,18 @@ const faqs = [
 
 function FAQItem({ question, answer, isOpen, onToggle }) {
   const contentRef = useRef(null);
-  const [contentHeight, setContentHeight] = useState(0);
+  const [height, setHeight] = useState(0);
 
   // 測量內容高度以配合動畫
   useEffect(() => {
     if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
+      const resizeObserver = new ResizeObserver(() => {
+        setHeight(contentRef.current.scrollHeight);
+      });
+      resizeObserver.observe(contentRef.current);
+      return () => resizeObserver.disconnect();
     }
-  }, [answer]);
-
-  useEffect(() => {
-    if (isOpen && contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
-  }, [isOpen]);
+  }, []);
 
   return (
     <div className="border border-gray-200 rounded-lg mb-3 overflow-hidden">
@@ -46,7 +44,8 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
       >
         <span className="font-medium text-gray-800">{question}</span>
         <svg
-          className={`w-5 h-5 text-gray-500 transition-transform duration-300 ease-out flex-shrink-0 ml-2 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-gray-500 transition-transform duration-300 flex-shrink-0 ml-2 ${isOpen ? 'rotate-180' : ''}`}
+          style={{ transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)' }}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -56,8 +55,11 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
       </button>
       {/* 滑動展開動畫容器 */}
       <div
-        className={`overflow-hidden transition-all duration-300 ease-out ${isOpen ? 'opacity-100' : 'opacity-0'}`}
-        style={{ maxHeight: isOpen ? `${contentHeight}px` : 0 }}
+        className="overflow-hidden transition-[max-height] duration-300"
+        style={{
+          maxHeight: isOpen ? `${height}px` : '0px',
+          transitionTimingFunction: isOpen ? 'cubic-bezier(0.4, 0, 0.2, 1)' : 'cubic-bezier(0.4, 0, 1, 1)',
+        }}
       >
         <div ref={contentRef} className="px-4 py-3 bg-white">
           <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
