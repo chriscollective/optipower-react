@@ -18,8 +18,42 @@ export function DownloadButton({ targetId }) {
         return;
       }
 
+      // 複製元素以避免修改原始 DOM
+      const clonedElement = element.cloneNode(true);
+      clonedElement.style.position = 'absolute';
+      clonedElement.style.left = '-9999px';
+      clonedElement.style.top = '0';
+      clonedElement.style.width = `${element.offsetWidth}px`;
+      document.body.appendChild(clonedElement);
+
+      // 將 oklab 色彩轉換為 RGB（html2canvas 不支援 oklab）
+      const convertOklabColors = (el) => {
+        const computedStyle = window.getComputedStyle(el);
+        const colorProperties = ['color', 'backgroundColor', 'borderColor', 'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor'];
+
+        colorProperties.forEach(prop => {
+          const value = computedStyle.getPropertyValue(prop.replace(/([A-Z])/g, '-$1').toLowerCase());
+          if (value && value.includes('oklab')) {
+            // 使用計算後的實際顏色值
+            const canvas = document.createElement('canvas');
+            canvas.width = 1;
+            canvas.height = 1;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = value;
+            ctx.fillRect(0, 0, 1, 1);
+            const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+            el.style[prop] = `rgb(${r}, ${g}, ${b})`;
+          }
+        });
+
+        // 遞迴處理子元素
+        Array.from(el.children).forEach(convertOklabColors);
+      };
+
+      convertOklabColors(clonedElement);
+
       // 使用 html2canvas 將元素轉換為圖片
-      const canvas = await html2canvas(element, {
+      const canvas = await html2canvas(clonedElement, {
         scale: 2, // 提高解析度
         useCORS: true,
         logging: false,
@@ -28,6 +62,9 @@ export function DownloadButton({ targetId }) {
         windowWidth: element.scrollWidth,
         windowHeight: element.scrollHeight,
       });
+
+      // 移除複製的元素
+      document.body.removeChild(clonedElement);
 
       // 計算 PDF 尺寸
       const imgWidth = 210; // A4 寬度 (mm)
