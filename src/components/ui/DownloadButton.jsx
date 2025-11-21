@@ -20,7 +20,7 @@ export function DownloadButton({ targetId }) {
 
       // 使用 html2canvas 將元素轉換為圖片
       const canvas = await html2canvas(element, {
-        scale: 2, // 提高解析度
+        scale: 1, // 降低解析度以縮小 PDF 內容
         useCORS: true,
         logging: false,
         backgroundColor: '#f8fafc',
@@ -136,48 +136,12 @@ export function DownloadButton({ targetId }) {
 
           const clonedElement = clonedDoc.getElementById(targetId);
           if (clonedElement) {
-            // 設定 PDF 專用樣式
-            clonedElement.style.padding = '20px';
+            // 設定 PDF 專用樣式 - 保持原始佈局
+            clonedElement.style.padding = '10px';
             clonedElement.style.maxWidth = '100%';
             clonedElement.style.boxSizing = 'border-box';
 
             applyComputedStyles(clonedElement, element);
-
-            // 調整表格樣式以適應 PDF - 縮小至少兩倍
-            const tables = clonedElement.querySelectorAll('table');
-            tables.forEach((table) => {
-              table.style.width = '60%';
-              table.style.tableLayout = 'fixed';
-              table.style.borderCollapse = 'collapse';
-              table.style.fontSize = '20px';
-            });
-
-            // 調整表格儲存格內間距
-            const cells = clonedElement.querySelectorAll('th, td');
-            cells.forEach((cell) => {
-              cell.style.padding = '1px 0.5px';
-              cell.style.margin = '0';
-              cell.style.fontSize = '20px';
-              cell.style.wordBreak = 'break-word';
-            });
-
-            // 縮小表格容器的圓角和間距
-            const tableContainers = clonedElement.querySelectorAll('.overflow-x-auto');
-            tableContainers.forEach((container) => {
-              container.style.borderRadius = '4px';
-            });
-
-            // 調整卡片間距
-            const cards = clonedElement.querySelectorAll('[class*="mb-6"]');
-            cards.forEach((card) => {
-              card.style.marginBottom = '16px';
-            });
-
-            // 調整 grid 佈局
-            const grids = clonedElement.querySelectorAll('[class*="grid"]');
-            grids.forEach((grid) => {
-              grid.style.gap = '8px';
-            });
           }
         },
       });
