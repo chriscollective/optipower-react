@@ -71,14 +71,12 @@ export function OptimizationResult({
       {/* 節省金額 */}
       {hasSavings && (
         <div className="bg-gradient-to-r from-amber-50 via-yellow-50 to-orange-50 border border-amber-200/60 rounded-xl p-6 text-center shadow-sm">
-          <p className="text-sm font-semibold text-amber-700 mb-2">
-            💰 優化後一年可節省金額
-          </p>
+          <p className="text-sm font-semibold text-amber-700 mb-2">💰 優化後一年可節省金額</p>
           <p className="text-4xl font-bold text-amber-600 mb-2">
             {Math.round(savings).toLocaleString()}
             <span className="text-lg font-medium ml-1">元</span>
           </p>
-          <p className="text-sm text-amber-600">
+          <p className="text-sm text-amber-600" data-pdf-spacing="monthly-savings">
             📆 平均每個月可節省金額：
             <span className="font-bold">{Math.round(savings / 12).toLocaleString()} 元</span>
           </p>

@@ -70,38 +70,45 @@ function App() {
             {calculator.results && (
               <div id="pdf-content">
                 {/* 最佳化建議 */}
-                <OptimizationResult
-                  currentCapacity={calculator.results.currentCapacity}
-                  currentFee={calculator.results.currentFee}
-                  optimalCapacity={calculator.results.optimalCapacity}
-                  optimalFee={calculator.results.optimalFee}
-                  savings={calculator.results.savings}
-                  savingsRate={calculator.results.savingsRate}
-                />
+                <div data-pdf-section="optimization">
+                  <OptimizationResult
+                    currentCapacity={calculator.results.currentCapacity}
+                    currentFee={calculator.results.currentFee}
+                    optimalCapacity={calculator.results.optimalCapacity}
+                    optimalFee={calculator.results.optimalFee}
+                    savings={calculator.results.savings}
+                    savingsRate={calculator.results.savingsRate}
+                  />
+                </div>
 
                 {/* 費用分布圖 */}
-                <FeeChart
-                  chartData={calculator.results.chartData}
-                  currentCapacity={calculator.results.currentCapacity}
-                  optimalCapacity={calculator.results.optimalCapacity}
-                />
+                <div data-pdf-section="chart">
+                  <FeeChart
+                    chartData={calculator.results.chartData}
+                    currentCapacity={calculator.results.currentCapacity}
+                    optimalCapacity={calculator.results.optimalCapacity}
+                  />
+                </div>
 
                 {/* 目前狀況明細 */}
-                <CurrentStatus
-                  capacity={calculator.results.currentCapacity}
-                  totalFee={calculator.results.currentFee}
-                  monthlyDetails={calculator.results.currentMonthlyDetails}
-                />
+                <div data-pdf-section="current-status">
+                  <CurrentStatus
+                    capacity={calculator.results.currentCapacity}
+                    totalFee={calculator.results.currentFee}
+                    monthlyDetails={calculator.results.currentMonthlyDetails}
+                  />
+                </div>
 
                 {/* 變更後契約狀況 */}
-                <OptimalStatus
-                  capacity={calculator.results.optimalCapacity}
-                  totalFee={calculator.results.optimalFee}
-                  monthlyDetails={calculator.results.optimalMonthlyDetails}
-                />
+                <div data-pdf-section="optimal-status">
+                  <OptimalStatus
+                    capacity={calculator.results.optimalCapacity}
+                    totalFee={calculator.results.optimalFee}
+                    monthlyDetails={calculator.results.optimalMonthlyDetails}
+                  />
+                </div>
               </div>
             )}
-
             {/* PDF 下載按鈕 - 只在有結果時顯示 */}
             {calculator.results && <DownloadButton targetId="pdf-content" />}
 
