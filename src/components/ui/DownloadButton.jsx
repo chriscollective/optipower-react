@@ -18,47 +18,6 @@ export function DownloadButton({ targetId }) {
         return;
       }
 
-      // 將 oklab/oklch 色彩轉換為 RGB（html2canvas 不支援這些色彩函數）
-      const convertModernColors = (el, sourceEl) => {
-        const computedStyle = window.getComputedStyle(sourceEl);
-        const colorProperties = [
-          'color', 'backgroundColor', 'borderColor',
-          'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor',
-          'outlineColor', 'textDecorationColor', 'caretColor', 'boxShadow'
-        ];
-
-        colorProperties.forEach(prop => {
-          const cssName = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
-          const value = computedStyle.getPropertyValue(cssName);
-          if (value && (value.includes('oklab') || value.includes('oklch') || value.includes('color('))) {
-            // 使用 canvas 取得計算後的實際顏色值
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = 1;
-            tempCanvas.height = 1;
-            const ctx = tempCanvas.getContext('2d');
-            ctx.fillStyle = value;
-            ctx.fillRect(0, 0, 1, 1);
-            const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
-            el.style[prop] = a < 255 ? `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(2)})` : `rgb(${r}, ${g}, ${b})`;
-          }
-        });
-
-        // 處理漸層背景
-        const bgImage = computedStyle.getPropertyValue('background-image');
-        if (bgImage && (bgImage.includes('oklab') || bgImage.includes('oklch'))) {
-          el.style.backgroundImage = 'none';
-        }
-
-        // 遞迴處理子元素
-        const children = Array.from(el.children);
-        const sourceChildren = Array.from(sourceEl.children);
-        children.forEach((child, index) => {
-          if (sourceChildren[index]) {
-            convertModernColors(child, sourceChildren[index]);
-          }
-        });
-      };
-
       // 使用 html2canvas 將元素轉換為圖片
       const canvas = await html2canvas(element, {
         scale: 2, // 提高解析度
@@ -66,8 +25,76 @@ export function DownloadButton({ targetId }) {
         logging: false,
         backgroundColor: '#f8fafc',
         // 在克隆後處理色彩轉換
-        onclone: (clonedDoc, clonedElement) => {
-          convertModernColors(clonedElement, element);
+        onclone: (clonedDoc) => {
+          // 移除所有樣式表，避免 oklab/oklch 解析錯誤
+          const styleSheets = clonedDoc.querySelectorAll('style, link[rel="stylesheet"]');
+          styleSheets.forEach(sheet => sheet.remove());
+
+          // 為克隆文檔中的所有元素應用內聯計算樣式
+          const applyComputedStyles = (clonedEl, sourceEl) => {
+            if (clonedEl.nodeType !== 1) return; // 只處理元素節點
+
+            const computedStyle = window.getComputedStyle(sourceEl);
+            const importantProps = [
+              'color', 'backgroundColor', 'borderColor',
+              'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor',
+              'borderWidth', 'borderTopWidth', 'borderRightWidth', 'borderBottomWidth', 'borderLeftWidth',
+              'borderStyle', 'borderRadius',
+              'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
+              'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft',
+              'fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'textAlign',
+              'display', 'flexDirection', 'justifyContent', 'alignItems', 'gap',
+              'width', 'height', 'maxWidth', 'minWidth',
+              'position', 'top', 'right', 'bottom', 'left',
+              'boxShadow', 'opacity', 'overflow', 'textDecoration',
+              'gridTemplateColumns', 'gridTemplateRows'
+            ];
+
+            importantProps.forEach(prop => {
+              const cssName = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+              let value = computedStyle.getPropertyValue(cssName);
+
+              // 轉換現代色彩函數為 RGB
+              if (value && (value.includes('oklab') || value.includes('oklch') || value.includes('color('))) {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = 1;
+                tempCanvas.height = 1;
+                const ctx = tempCanvas.getContext('2d', { willReadFrequently: true });
+                ctx.fillStyle = value;
+                ctx.fillRect(0, 0, 1, 1);
+                const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+                value = a < 255 ? `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(2)})` : `rgb(${r}, ${g}, ${b})`;
+              }
+
+              if (value) {
+                clonedEl.style[prop] = value;
+              }
+            });
+
+            // 處理背景圖片（漸層）
+            const bgImage = computedStyle.getPropertyValue('background-image');
+            if (bgImage && bgImage !== 'none') {
+              if (bgImage.includes('oklab') || bgImage.includes('oklch')) {
+                clonedEl.style.backgroundImage = 'none';
+              } else {
+                clonedEl.style.backgroundImage = bgImage;
+              }
+            }
+
+            // 遞迴處理子元素
+            const clonedChildren = Array.from(clonedEl.children);
+            const sourceChildren = Array.from(sourceEl.children);
+            clonedChildren.forEach((child, index) => {
+              if (sourceChildren[index]) {
+                applyComputedStyles(child, sourceChildren[index]);
+              }
+            });
+          };
+
+          const clonedElement = clonedDoc.getElementById(targetId);
+          if (clonedElement) {
+            applyComputedStyles(clonedElement, element);
+          }
         },
       });
 
