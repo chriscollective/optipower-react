@@ -26,31 +26,46 @@ export function DownloadButton({ targetId }) {
       clonedElement.style.width = `${element.offsetWidth}px`;
       document.body.appendChild(clonedElement);
 
-      // 將 oklab 色彩轉換為 RGB（html2canvas 不支援 oklab）
-      const convertOklabColors = (el) => {
+      // 將 oklab/oklch 色彩轉換為 RGB（html2canvas 不支援這些色彩函數）
+      const convertModernColors = (el) => {
         const computedStyle = window.getComputedStyle(el);
-        const colorProperties = ['color', 'backgroundColor', 'borderColor', 'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor'];
+        const colorProperties = [
+          'color', 'backgroundColor', 'borderColor',
+          'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor',
+          'outlineColor', 'textDecorationColor', 'caretColor'
+        ];
 
         colorProperties.forEach(prop => {
-          const value = computedStyle.getPropertyValue(prop.replace(/([A-Z])/g, '-$1').toLowerCase());
-          if (value && value.includes('oklab')) {
-            // 使用計算後的實際顏色值
-            const canvas = document.createElement('canvas');
-            canvas.width = 1;
-            canvas.height = 1;
-            const ctx = canvas.getContext('2d');
+          const cssName = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+          const value = computedStyle.getPropertyValue(cssName);
+          if (value && (value.includes('oklab') || value.includes('oklch') || value.includes('color('))) {
+            // 使用 canvas 取得計算後的實際顏色值
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 1;
+            tempCanvas.height = 1;
+            const ctx = tempCanvas.getContext('2d');
             ctx.fillStyle = value;
             ctx.fillRect(0, 0, 1, 1);
-            const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-            el.style[prop] = `rgb(${r}, ${g}, ${b})`;
+            const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+            el.style[prop] = a < 255 ? `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(2)})` : `rgb(${r}, ${g}, ${b})`;
           }
         });
 
+        // 處理漸層背景
+        const bgImage = computedStyle.getPropertyValue('background-image');
+        if (bgImage && (bgImage.includes('oklab') || bgImage.includes('oklch'))) {
+          // 對於漸層，直接設為透明或使用計算後的背景色
+          const bgColor = computedStyle.getPropertyValue('background-color');
+          if (bgColor && !bgColor.includes('oklab') && !bgColor.includes('oklch')) {
+            el.style.backgroundImage = 'none';
+          }
+        }
+
         // 遞迴處理子元素
-        Array.from(el.children).forEach(convertOklabColors);
+        Array.from(el.children).forEach(convertModernColors);
       };
 
-      convertOklabColors(clonedElement);
+      convertModernColors(clonedElement);
 
       // 使用 html2canvas 將元素轉換為圖片
       const canvas = await html2canvas(clonedElement, {
