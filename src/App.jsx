@@ -12,14 +12,16 @@ function App() {
   const calculator = useCalculator();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* 頁首 */}
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-6 text-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+      <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-5 text-center">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
             ⚡ 契約容量最佳化計算工具｜OptiPower
           </h1>
-          <p className="mt-2 text-gray-600">專為台灣低壓電力用戶打造的免費電費最佳化試算</p>
+          <p className="mt-2 text-gray-600 text-sm md:text-base">
+            專為台灣低壓電力用戶打造的免費電費最佳化試算
+          </p>
         </div>
       </header>
 
@@ -86,9 +88,14 @@ function App() {
       </div>
 
       {/* 頁尾 */}
-      <footer className="bg-white border-t mt-12">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-500">
-          <p>Copyright ©2025 Chris Du. All rights reserved.</p>
+      <footer className="bg-white/80 backdrop-blur-md border-t border-gray-200/50 mt-12">
+        <div className="container mx-auto px-4 py-6 text-center">
+          <p className="text-sm text-gray-500">
+            Copyright ©2025 Chris Du. All rights reserved.
+          </p>
+          <p className="text-xs text-gray-400 mt-1">
+            Made with ❤️ for Taiwan Power Users
+          </p>
         </div>
       </footer>
     </div>

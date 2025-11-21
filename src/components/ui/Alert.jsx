@@ -1,27 +1,27 @@
-// 提示訊息元件
+// 提示訊息元件 - 現代精緻風格
 
 const variants = {
   success: {
-    container: 'bg-green-50 border-green-200',
-    icon: 'text-green-400',
-    title: 'text-green-800',
-    text: 'text-green-700',
+    container: 'bg-gradient-to-r from-emerald-50 to-green-50 border-emerald-200/60',
+    icon: 'text-emerald-500',
+    title: 'text-emerald-800',
+    text: 'text-emerald-700',
   },
   warning: {
-    container: 'bg-yellow-50 border-yellow-200',
-    icon: 'text-yellow-400',
-    title: 'text-yellow-800',
-    text: 'text-yellow-700',
+    container: 'bg-gradient-to-r from-amber-50 to-yellow-50 border-amber-200/60',
+    icon: 'text-amber-500',
+    title: 'text-amber-800',
+    text: 'text-amber-700',
   },
   error: {
-    container: 'bg-red-50 border-red-200',
-    icon: 'text-red-400',
+    container: 'bg-gradient-to-r from-red-50 to-rose-50 border-red-200/60',
+    icon: 'text-red-500',
     title: 'text-red-800',
     text: 'text-red-700',
   },
   info: {
-    container: 'bg-blue-50 border-blue-200',
-    icon: 'text-blue-400',
+    container: 'bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200/60',
+    icon: 'text-blue-500',
     title: 'text-blue-800',
     text: 'text-blue-700',
   },
@@ -31,9 +31,19 @@ export function Alert({ variant = 'info', title, children, className = '' }) {
   const styles = variants[variant];
 
   return (
-    <div className={`rounded-lg border p-4 ${styles.container} ${className}`}>
-      {title && <h4 className={`font-medium mb-1 ${styles.title}`}>{title}</h4>}
-      <div className={`text-sm ${styles.text}`}>{children}</div>
+    <div
+      className={`
+        rounded-xl border p-4
+        backdrop-blur-sm
+        shadow-sm
+        ${styles.container}
+        ${className}
+      `}
+    >
+      {title && (
+        <h4 className={`font-semibold mb-1 ${styles.title}`}>{title}</h4>
+      )}
+      <div className={`text-sm leading-relaxed ${styles.text}`}>{children}</div>
     </div>
   );
 }
