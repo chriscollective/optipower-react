@@ -100,19 +100,27 @@ export function DownloadButton({ targetId }) {
 
             applyComputedStyles(clonedElement, element);
 
-            // 調整表格樣式以適應 PDF
+            // 調整表格樣式以適應 PDF - 縮小至少兩倍
             const tables = clonedElement.querySelectorAll('table');
             tables.forEach(table => {
               table.style.width = '100%';
               table.style.tableLayout = 'fixed';
               table.style.borderCollapse = 'collapse';
+              table.style.fontSize = '8px';
             });
 
             // 調整表格儲存格內間距
             const cells = clonedElement.querySelectorAll('th, td');
             cells.forEach(cell => {
-              cell.style.padding = '4px 2px';
+              cell.style.padding = '2px 1px';
+              cell.style.fontSize = '8px';
               cell.style.wordBreak = 'break-word';
+            });
+
+            // 縮小表格容器的圓角和間距
+            const tableContainers = clonedElement.querySelectorAll('.overflow-x-auto');
+            tableContainers.forEach(container => {
+              container.style.borderRadius = '4px';
             });
 
             // 調整卡片間距
