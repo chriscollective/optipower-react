@@ -23,25 +23,33 @@ const faqs = [
 
 function FAQItem({ question, answer, isOpen, onToggle }) {
   return (
-    <div className="border-b border-gray-200 last:border-0">
+    <div className="border-b border-gray-100 last:border-0">
       <button
         onClick={onToggle}
-        className="w-full py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+        className="w-full py-4 px-2 flex items-center justify-between text-left hover:bg-gray-50/80 rounded-lg transition-all duration-200"
       >
-        <span className="font-medium text-gray-900 pr-4">{question}</span>
+        <span className="font-medium text-gray-800 pr-4">{question}</span>
         <span
-          className={`flex-shrink-0 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`flex-shrink-0 text-gray-400 transition-transform duration-300 ease-out ${isOpen ? 'rotate-180' : ''}`}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </span>
       </button>
-      {isOpen && (
-        <div className="pb-4 pr-12">
-          <p className="text-sm text-gray-600">{answer}</p>
+      {/* 滑動展開動畫容器 */}
+      <div
+        className={`
+          grid transition-all duration-300 ease-out
+          ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
+        `}
+      >
+        <div className="overflow-hidden">
+          <div className="pb-4 pr-12 pl-2">
+            <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

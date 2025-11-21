@@ -5,7 +5,7 @@ export function Sidebar() {
     <aside className="w-full">
       <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100">
         {/* 側邊欄標題 */}
-        <div className="px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-slate-100 rounded-t-2xl">
+        <div className="px-5 py-4 mt-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-slate-100 rounded-t-2xl">
           <h2 className="font-bold text-gray-800 text-lg">🔖 網站說明</h2>
         </div>
 
@@ -118,7 +118,8 @@ export function Sidebar() {
           <section>
             <h3 className="font-bold text-gray-800 mb-3 text-base">🙌 贊助與支持</h3>
             <p className="mb-3">
-              如果你覺得這個網站對你有幫助，歡迎透過以下LINE Pay QR code自由樂捐給站主，感謝你的支持！
+              如果你覺得這個網站對你有幫助，歡迎透過以下LINE Pay QR
+              code自由樂捐給站主，感謝你的支持！
             </p>
             <div className="flex justify-center">
               <img
@@ -134,7 +135,10 @@ export function Sidebar() {
             <h3 className="font-bold text-gray-800 mb-3 text-base">📬 聯繫與反饋</h3>
             <p className="mb-2">如果有任何網站相關的問題，歡迎寄信到以下信箱聯繫站主：</p>
             <p className="mb-3">
-              <a href="mailto:justakiss918@gmail.com" className="text-blue-600 hover:text-blue-700 hover:underline font-medium">
+              <a
+                href="mailto:justakiss918@gmail.com"
+                className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
+              >
                 justakiss918@gmail.com
               </a>
             </p>
