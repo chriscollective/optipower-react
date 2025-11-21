@@ -98,8 +98,7 @@ export function Sidebar() {
             <h3 className="font-bold text-gray-800 mb-3 text-base">📝 申請變更方式</h3>
             <p>
               主委帶著大小章（社區大章、主委個人章）、身分證、區公所公文（申報公文，證明主委身份），
-              到台電服務處臨櫃申請契約容量變更，直接告訴櫃檯人員說你要改為多少千瓦
-              (其實你也可以請台電人員幫你計算改為多少最合理，他可以查閱歷年資料來計算，但是你看不到他是怎麼算的)，
+              到台電服務處臨櫃申請契約容量變更，直接告訴櫃檯人員說你要改為多少千瓦，
               通過後大約一周內，會有台電人員到社區內調整電表。
             </p>
           </section>
@@ -112,22 +111,6 @@ export function Sidebar() {
               (如果當初社區管理人員早一點調整，30年的時間至少可以省下將近90萬的電費!)
               希望藉由這個網站幫助更多人省錢!也練習與AI溝通的能力!
             </p>
-          </section>
-
-          {/* 贊助與支持 */}
-          <section>
-            <h3 className="font-bold text-gray-800 mb-3 text-base">🙌 贊助與支持</h3>
-            <p className="mb-3">
-              如果你覺得這個網站對你有幫助，歡迎透過以下LINE Pay QR
-              code自由樂捐給站主，感謝你的支持！
-            </p>
-            <div className="flex justify-center">
-              <img
-                src="/linepay_qrcode.jpg"
-                alt="LINE Pay QR Code－贊助 OptiPower"
-                className="w-36 h-36 object-contain rounded-lg shadow-md"
-              />
-            </div>
           </section>
 
           {/* 聯繫與反饋 */}

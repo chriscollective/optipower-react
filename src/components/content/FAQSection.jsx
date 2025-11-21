@@ -1,6 +1,6 @@
 // FAQ 常見問題區塊元件
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Card } from '../ui/Card';
 
 const faqs = [
@@ -22,6 +22,22 @@ const faqs = [
 ];
 
 function FAQItem({ question, answer, isOpen, onToggle }) {
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  // Measure content height so max-height animation matches the actual content size
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [answer]);
+
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [isOpen]);
+
   return (
     <div className="border-b border-gray-100 last:border-0">
       <button
@@ -39,15 +55,11 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
       </button>
       {/* 滑動展開動畫容器 */}
       <div
-        className={`
-          grid transition-all duration-300 ease-out
-          ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
-        `}
+        className={`overflow-hidden transition-all duration-300 ease-out ${isOpen ? 'opacity-100' : 'opacity-0'}`}
+        style={{ maxHeight: isOpen ? `${contentHeight}px` : 0 }}
       >
-        <div className="overflow-hidden">
-          <div className="pb-4 pr-12 pl-2">
-            <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
-          </div>
+        <div ref={contentRef} className="pb-4 pr-12 pl-2">
+          <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
         </div>
       </div>
     </div>
