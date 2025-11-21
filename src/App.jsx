@@ -4,6 +4,8 @@ import { CalculatorForm } from './components/form/CalculatorForm';
 import { CurrentStatus } from './components/results/CurrentStatus';
 import { OptimizationResult } from './components/results/OptimizationResult';
 import { FeeChart } from './components/results/FeeChart';
+import { IntroSection } from './components/content/IntroSection';
+import { FAQSection } from './components/content/FAQSection';
 
 function App() {
   const calculator = useCalculator();
@@ -25,6 +27,9 @@ function App() {
       {/* 主內容 */}
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
+          {/* 介紹說明 */}
+          <IntroSection />
+
           {/* 計算表單 */}
           <Card title="輸入資料" className="mb-6">
             <CalculatorForm
@@ -69,6 +74,9 @@ function App() {
               />
             </>
           )}
+
+          {/* FAQ 常見問題 */}
+          <FAQSection />
         </div>
       </main>
 
