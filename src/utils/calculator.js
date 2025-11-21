@@ -7,7 +7,6 @@ import {
   PENALTY_RATE_UNDER_10,
   PENALTY_RATE_OVER_10,
   SEARCH_STEP,
-  SEARCH_PADDING,
 } from './constants';
 
 /**
@@ -125,9 +124,9 @@ export function findOptimalCapacity(monthlyDemands) {
   const maxDemand = Math.max(...validDemands);
   const minDemand = Math.min(...validDemands);
 
-  // 搜尋範圍：從最小需量的 40% 到最大需量的 120%
+  // 搜尋範圍：從最小需量的 40% 到最大需量的 150%
   const searchMin = Math.max(1, Math.floor(minDemand * 0.4));
-  const searchMax = Math.ceil(maxDemand * 1.2) + SEARCH_PADDING;
+  const searchMax = Math.ceil(maxDemand * 1.5);
 
   let optimalCapacity = searchMin;
   let minFee = Infinity;
