@@ -1,6 +1,6 @@
 // FAQ 常見問題區塊元件
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Card } from '../ui/Card';
 
 const faqs = [
@@ -22,6 +22,31 @@ const faqs = [
 ];
 
 function FAQItem({ question, answer, isOpen, onToggle }) {
+  const contentRef = useRef(null);
+  const [height, setHeight] = useState(0);
+
+  // 根據開闔狀態調整高度以製造向下滑動動畫
+  useEffect(() => {
+    if (!contentRef.current) return;
+
+    setHeight(isOpen ? contentRef.current.scrollHeight : 0);
+  }, [isOpen]);
+
+  // 開啟時監聽視窗尺寸，避免字體換行造成高度錯誤
+  useEffect(() => {
+    if (!isOpen) return;
+    if (typeof window === 'undefined') return;
+
+    const handleResize = () => {
+      if (contentRef.current) {
+        setHeight(contentRef.current.scrollHeight);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen]);
+
   return (
     <div className="border border-gray-200 rounded-lg mb-3 overflow-hidden">
       <button
@@ -39,12 +64,11 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
         </svg>
       </button>
       <div
-        className={`grid ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} transition-[grid-template-rows] duration-300 ease-in-out`}
+        className={`overflow-hidden transition-[height,opacity] duration-400 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0'}`}
+        style={{ height }}
       >
-        <div className="overflow-hidden">
-          <div className="px-4 py-3 bg-white">
-            <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
-          </div>
+        <div ref={contentRef} className="px-4 py-3 bg-white">
+          <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
         </div>
       </div>
     </div>
