@@ -6,6 +6,7 @@ import { OptimizationResult } from './components/results/OptimizationResult';
 import { FeeChart } from './components/results/FeeChart';
 import { IntroSection } from './components/content/IntroSection';
 import { FAQSection } from './components/content/FAQSection';
+import { Sidebar } from './components/layout/Sidebar';
 
 function App() {
   const calculator = useCalculator();
@@ -16,77 +17,78 @@ function App() {
       <header className="bg-white shadow-sm">
         <div className="container mx-auto px-4 py-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-            OptiPower 契約容量最佳化計算器
+            ⚡ 契約容量最佳化計算工具｜OptiPower
           </h1>
-          <p className="mt-2 text-gray-600">
-            輸入您的用電資料，找出最省錢的契約容量
-          </p>
+          <p className="mt-2 text-gray-600">專為台灣低壓電力用戶打造的免費電費最佳化試算</p>
         </div>
       </header>
 
-      {/* 主內容 */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          {/* 介紹說明 */}
-          <IntroSection />
+      {/* 主內容區域 - 側邊欄 + 主內容 */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* 左側側邊欄 */}
+          <Sidebar />
 
-          {/* 計算表單 */}
-          <Card title="輸入資料" className="mb-6">
-            <CalculatorForm
-              capacity={calculator.capacity}
-              setCapacity={calculator.setCapacity}
-              monthlyDemands={calculator.monthlyDemands}
-              updateDemand={calculator.updateDemand}
-              errors={calculator.errors}
-              warnings={calculator.warnings}
-              onSubmit={calculator.calculate}
-              onReset={calculator.reset}
-              isCalculating={calculator.isCalculating}
-              canCalculate={calculator.canCalculate}
-            />
-          </Card>
+          {/* 右側主內容 */}
+          <main className="flex-1 min-w-0">
+            {/* 介紹說明 */}
+            <IntroSection />
 
-          {/* 計算結果 */}
-          {calculator.results && (
-            <>
-              {/* 最佳化建議 */}
-              <OptimizationResult
-                currentCapacity={calculator.results.currentCapacity}
-                currentFee={calculator.results.currentFee}
-                optimalCapacity={calculator.results.optimalCapacity}
-                optimalFee={calculator.results.optimalFee}
-                savings={calculator.results.savings}
-                savingsRate={calculator.results.savingsRate}
+            {/* 計算表單 */}
+            <Card title="輸入資料" className="mb-6">
+              <CalculatorForm
+                capacity={calculator.capacity}
+                setCapacity={calculator.setCapacity}
+                monthlyDemands={calculator.monthlyDemands}
+                updateDemand={calculator.updateDemand}
+                errors={calculator.errors}
+                warnings={calculator.warnings}
+                onSubmit={calculator.calculate}
+                onReset={calculator.reset}
+                isCalculating={calculator.isCalculating}
+                canCalculate={calculator.canCalculate}
               />
+            </Card>
 
-              {/* 費用分布圖 */}
-              <FeeChart
-                chartData={calculator.results.chartData}
-                currentCapacity={calculator.results.currentCapacity}
-                optimalCapacity={calculator.results.optimalCapacity}
-              />
+            {/* 計算結果 */}
+            {calculator.results && (
+              <>
+                {/* 最佳化建議 */}
+                <OptimizationResult
+                  currentCapacity={calculator.results.currentCapacity}
+                  currentFee={calculator.results.currentFee}
+                  optimalCapacity={calculator.results.optimalCapacity}
+                  optimalFee={calculator.results.optimalFee}
+                  savings={calculator.results.savings}
+                  savingsRate={calculator.results.savingsRate}
+                />
 
-              {/* 目前狀況明細 */}
-              <CurrentStatus
-                capacity={calculator.results.currentCapacity}
-                totalFee={calculator.results.currentFee}
-                monthlyDetails={calculator.results.currentMonthlyDetails}
-              />
-            </>
-          )}
+                {/* 費用分布圖 */}
+                <FeeChart
+                  chartData={calculator.results.chartData}
+                  currentCapacity={calculator.results.currentCapacity}
+                  optimalCapacity={calculator.results.optimalCapacity}
+                />
 
-          {/* FAQ 常見問題 */}
-          <FAQSection />
+                {/* 目前狀況明細 */}
+                <CurrentStatus
+                  capacity={calculator.results.currentCapacity}
+                  totalFee={calculator.results.currentFee}
+                  monthlyDetails={calculator.results.currentMonthlyDetails}
+                />
+              </>
+            )}
+
+            {/* FAQ 常見問題 */}
+            <FAQSection />
+          </main>
         </div>
-      </main>
+      </div>
 
       {/* 頁尾 */}
       <footer className="bg-white border-t mt-12">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-500">
-          <p>OptiPower 契約容量最佳化計算器</p>
-          <p className="mt-1">
-            依據台電電價表計算，僅供參考
-          </p>
+          <p>Copyright ©2025 Chris Du. All rights reserved.</p>
         </div>
       </footer>
     </div>

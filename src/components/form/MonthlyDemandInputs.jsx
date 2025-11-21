@@ -11,7 +11,12 @@ export function MonthlyDemandInputs({ values, onChange, errors = [] }) {
 
   return (
     <div className="mb-6">
-      <label className="block text-sm font-medium text-gray-700 mb-3">各月最高需量 (kW)</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        輸入1~12月的最高需量（千瓦）
+      </label>
+      <p className="text-xs text-gray-500 mb-3">
+        通常在電費帳單➞最高需量(千瓦)➞經常(尖峰)需量
+      </p>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {MONTH_NAMES.map((month, index) => {
           const monthNum = index + 1;

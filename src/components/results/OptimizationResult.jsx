@@ -65,11 +65,13 @@ export function OptimizationResult({
       {/* 節省金額 */}
       {hasSavings && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-          <p className="text-sm text-yellow-700 mb-1">預估每年可節省</p>
+          <p className="text-sm text-yellow-700 mb-1">💰 優化後一年可節省金額</p>
           <p className="text-3xl font-bold text-yellow-600">
             {Math.round(savings).toLocaleString()} 元
           </p>
-          <p className="text-sm text-yellow-600 mt-1">節省比例：{savingsRate.toFixed(1)}%</p>
+          <p className="text-sm text-yellow-600 mt-1">
+            📆 平均每個月可節省金額：{Math.round(savings / 12).toLocaleString()} 元
+          </p>
         </div>
       )}
 

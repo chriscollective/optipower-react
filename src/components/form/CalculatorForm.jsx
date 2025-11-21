@@ -68,7 +68,7 @@ export function CalculatorForm({
           disabled={!canCalculate()}
           className="flex-1"
         >
-          計算最佳契約容量
+          🔍 開始計算最佳容量
         </Button>
         <Button type="button" variant="secondary" size="lg" onClick={onReset}>
           重置

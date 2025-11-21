@@ -3,9 +3,10 @@
 export function CapacityInput({ value, onChange, error }) {
   return (
     <div className="mb-6">
-      <label htmlFor="capacity" className="block text-sm font-medium text-gray-700 mb-2">
-        目前契約容量 (kW)
+      <label htmlFor="capacity" className="block text-sm font-medium text-gray-700 mb-1">
+        目前契約容量（千瓦）(經常(尖峰)契約)
       </label>
+      <p className="text-xs text-gray-500 mb-2">請輸入電費帳單上的契約容量</p>
       <div className="relative">
         <input
           type="number"
@@ -18,7 +19,7 @@ export function CapacityInput({ value, onChange, error }) {
             transition-colors duration-200
             ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300'}
           `}
-          placeholder="請輸入契約容量"
+          placeholder="25"
           min="1"
           max="10000"
           step="1"
