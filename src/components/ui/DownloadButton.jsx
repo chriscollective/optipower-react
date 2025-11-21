@@ -103,17 +103,15 @@ export function DownloadButton({ targetId }) {
             // 調整表格樣式以適應 PDF
             const tables = clonedElement.querySelectorAll('table');
             tables.forEach(table => {
-              table.style.fontSize = '10px';
               table.style.width = '100%';
               table.style.tableLayout = 'fixed';
               table.style.borderCollapse = 'collapse';
             });
 
-            // 調整表格儲存格
+            // 調整表格儲存格內間距
             const cells = clonedElement.querySelectorAll('th, td');
             cells.forEach(cell => {
-              cell.style.padding = '6px 4px';
-              cell.style.fontSize = '10px';
+              cell.style.padding = '4px 2px';
               cell.style.wordBreak = 'break-word';
             });
 
