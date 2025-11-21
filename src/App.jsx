@@ -15,8 +15,13 @@ function App() {
   return (
     <div className="min-h-screen">
       {/* 頁首 */}
-      <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 sticky top-0 z-50">
-        <div className="w-full px-4 py-5 text-center">
+      <header className="sticky top-0 z-50 border-b border-gray-200/30">
+        {/* 漸層背景層 */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-50/95 via-white/90 to-slate-50/95 backdrop-blur-md"></div>
+        {/* 裝飾線條 */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-300/50 to-transparent"></div>
+        {/* 內容 */}
+        <div className="relative w-full px-4 py-5 text-center">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
             ⚡ 契約容量最佳化計算工具｜OptiPower
           </h1>
