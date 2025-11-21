@@ -18,21 +18,13 @@ export function DownloadButton({ targetId }) {
         return;
       }
 
-      // 複製元素以避免修改原始 DOM
-      const clonedElement = element.cloneNode(true);
-      clonedElement.style.position = 'absolute';
-      clonedElement.style.left = '-9999px';
-      clonedElement.style.top = '0';
-      clonedElement.style.width = `${element.offsetWidth}px`;
-      document.body.appendChild(clonedElement);
-
       // 將 oklab/oklch 色彩轉換為 RGB（html2canvas 不支援這些色彩函數）
-      const convertModernColors = (el) => {
-        const computedStyle = window.getComputedStyle(el);
+      const convertModernColors = (el, sourceEl) => {
+        const computedStyle = window.getComputedStyle(sourceEl);
         const colorProperties = [
           'color', 'backgroundColor', 'borderColor',
           'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor',
-          'outlineColor', 'textDecorationColor', 'caretColor'
+          'outlineColor', 'textDecorationColor', 'caretColor', 'boxShadow'
         ];
 
         colorProperties.forEach(prop => {
@@ -54,32 +46,30 @@ export function DownloadButton({ targetId }) {
         // 處理漸層背景
         const bgImage = computedStyle.getPropertyValue('background-image');
         if (bgImage && (bgImage.includes('oklab') || bgImage.includes('oklch'))) {
-          // 對於漸層，直接設為透明或使用計算後的背景色
-          const bgColor = computedStyle.getPropertyValue('background-color');
-          if (bgColor && !bgColor.includes('oklab') && !bgColor.includes('oklch')) {
-            el.style.backgroundImage = 'none';
-          }
+          el.style.backgroundImage = 'none';
         }
 
         // 遞迴處理子元素
-        Array.from(el.children).forEach(convertModernColors);
+        const children = Array.from(el.children);
+        const sourceChildren = Array.from(sourceEl.children);
+        children.forEach((child, index) => {
+          if (sourceChildren[index]) {
+            convertModernColors(child, sourceChildren[index]);
+          }
+        });
       };
 
-      convertModernColors(clonedElement);
-
       // 使用 html2canvas 將元素轉換為圖片
-      const canvas = await html2canvas(clonedElement, {
+      const canvas = await html2canvas(element, {
         scale: 2, // 提高解析度
         useCORS: true,
         logging: false,
         backgroundColor: '#f8fafc',
-        // 確保完整捕捉內容
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight,
+        // 在克隆後處理色彩轉換
+        onclone: (clonedDoc, clonedElement) => {
+          convertModernColors(clonedElement, element);
+        },
       });
-
-      // 移除複製的元素
-      document.body.removeChild(clonedElement);
 
       // 計算 PDF 尺寸
       const imgWidth = 210; // A4 寬度 (mm)
