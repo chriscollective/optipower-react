@@ -1,5 +1,6 @@
 // FAQ 常見問題區塊元件
 
+import { useState } from 'react';
 import { Card } from '../ui/Card';
 
 const faqs = [
@@ -20,51 +21,53 @@ const faqs = [
   },
 ];
 
-function FAQItem({ question, answer }) {
+function FAQItem({ question, answer, isOpen, onToggle }) {
   return (
-    <details className="group border border-gray-200 rounded-lg mb-3 overflow-hidden">
-      <summary className="w-full px-4 py-3 flex items-center justify-between text-left bg-gray-50 hover:bg-gray-100 transition-colors duration-200 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+    <div className="border border-gray-200 rounded-lg mb-3 overflow-hidden">
+      <button
+        onClick={onToggle}
+        className="w-full px-4 py-3 flex items-center justify-between text-left bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+      >
         <span className="font-medium text-gray-800">{question}</span>
         <svg
-          className="w-5 h-5 text-gray-500 flex-shrink-0 ml-2 transition-transform duration-300 group-open:rotate-180"
+          className={`w-5 h-5 text-gray-500 flex-shrink-0 ml-2 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
-      </summary>
-      <div className="faq-content">
-        <div className="px-4 py-3 bg-white">
-          <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
+      </button>
+      <div
+        className={`grid ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} transition-[grid-template-rows] duration-300 ease-in-out`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-4 py-3 bg-white">
+            <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
+          </div>
         </div>
       </div>
-    </details>
+    </div>
   );
 }
 
 export function FAQSection() {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const handleToggle = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
     <Card title="常見問題" className="mt-8">
-      <style>{`
-        details .faq-content {
-          display: grid;
-          grid-template-rows: 0fr;
-          transition: grid-template-rows 0.3s ease-in-out;
-        }
-        details[open] .faq-content {
-          grid-template-rows: 1fr;
-        }
-        details .faq-content > div {
-          overflow: hidden;
-        }
-      `}</style>
       <div>
         {faqs.map((faq, index) => (
           <FAQItem
             key={index}
             question={faq.question}
             answer={faq.answer}
+            isOpen={openIndex === index}
+            onToggle={() => handleToggle(index)}
           />
         ))}
       </div>
