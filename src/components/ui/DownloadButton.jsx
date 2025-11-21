@@ -28,7 +28,7 @@ export function DownloadButton({ targetId }) {
         onclone: (clonedDoc) => {
           // 移除所有樣式表，避免 oklab/oklch 解析錯誤
           const styleSheets = clonedDoc.querySelectorAll('style, link[rel="stylesheet"]');
-          styleSheets.forEach(sheet => sheet.remove());
+          styleSheets.forEach((sheet) => sheet.remove());
 
           // 為克隆文檔中的所有元素應用內聯計算樣式
           const applyComputedStyles = (clonedEl, sourceEl) => {
@@ -36,26 +36,66 @@ export function DownloadButton({ targetId }) {
 
             const computedStyle = window.getComputedStyle(sourceEl);
             const importantProps = [
-              'color', 'backgroundColor', 'borderColor',
-              'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor',
-              'borderWidth', 'borderTopWidth', 'borderRightWidth', 'borderBottomWidth', 'borderLeftWidth',
-              'borderStyle', 'borderRadius',
-              'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
-              'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft',
-              'fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'textAlign',
-              'display', 'flexDirection', 'justifyContent', 'alignItems', 'gap',
-              'width', 'height', 'maxWidth', 'minWidth',
-              'position', 'top', 'right', 'bottom', 'left',
-              'boxShadow', 'opacity', 'overflow', 'textDecoration',
-              'gridTemplateColumns', 'gridTemplateRows'
+              'color',
+              'backgroundColor',
+              'borderColor',
+              'borderTopColor',
+              'borderRightColor',
+              'borderBottomColor',
+              'borderLeftColor',
+              'borderWidth',
+              'borderTopWidth',
+              'borderRightWidth',
+              'borderBottomWidth',
+              'borderLeftWidth',
+              'borderStyle',
+              'borderRadius',
+              'padding',
+              'paddingTop',
+              'paddingRight',
+              'paddingBottom',
+              'paddingLeft',
+              'margin',
+              'marginTop',
+              'marginRight',
+              'marginBottom',
+              'marginLeft',
+              'fontSize',
+              'fontWeight',
+              'fontFamily',
+              'lineHeight',
+              'textAlign',
+              'display',
+              'flexDirection',
+              'justifyContent',
+              'alignItems',
+              'gap',
+              'width',
+              'height',
+              'maxWidth',
+              'minWidth',
+              'position',
+              'top',
+              'right',
+              'bottom',
+              'left',
+              'boxShadow',
+              'opacity',
+              'overflow',
+              'textDecoration',
+              'gridTemplateColumns',
+              'gridTemplateRows',
             ];
 
-            importantProps.forEach(prop => {
+            importantProps.forEach((prop) => {
               const cssName = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
               let value = computedStyle.getPropertyValue(cssName);
 
               // 轉換現代色彩函數為 RGB
-              if (value && (value.includes('oklab') || value.includes('oklch') || value.includes('color('))) {
+              if (
+                value &&
+                (value.includes('oklab') || value.includes('oklch') || value.includes('color('))
+              ) {
                 const tempCanvas = document.createElement('canvas');
                 tempCanvas.width = 1;
                 tempCanvas.height = 1;
@@ -63,7 +103,10 @@ export function DownloadButton({ targetId }) {
                 ctx.fillStyle = value;
                 ctx.fillRect(0, 0, 1, 1);
                 const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
-                value = a < 255 ? `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(2)})` : `rgb(${r}, ${g}, ${b})`;
+                value =
+                  a < 255
+                    ? `rgba(${r}, ${g}, ${b}, ${(a / 255).toFixed(2)})`
+                    : `rgb(${r}, ${g}, ${b})`;
               }
 
               if (value) {
@@ -102,36 +145,37 @@ export function DownloadButton({ targetId }) {
 
             // 調整表格樣式以適應 PDF - 縮小至少兩倍
             const tables = clonedElement.querySelectorAll('table');
-            tables.forEach(table => {
-              table.style.width = '100%';
+            tables.forEach((table) => {
+              table.style.width = '60%';
               table.style.tableLayout = 'fixed';
               table.style.borderCollapse = 'collapse';
-              table.style.fontSize = '8px';
+              table.style.fontSize = '20px';
             });
 
             // 調整表格儲存格內間距
             const cells = clonedElement.querySelectorAll('th, td');
-            cells.forEach(cell => {
-              cell.style.padding = '2px 1px';
-              cell.style.fontSize = '8px';
+            cells.forEach((cell) => {
+              cell.style.padding = '1px 0.5px';
+              cell.style.margin = '0';
+              cell.style.fontSize = '20px';
               cell.style.wordBreak = 'break-word';
             });
 
             // 縮小表格容器的圓角和間距
             const tableContainers = clonedElement.querySelectorAll('.overflow-x-auto');
-            tableContainers.forEach(container => {
+            tableContainers.forEach((container) => {
               container.style.borderRadius = '4px';
             });
 
             // 調整卡片間距
             const cards = clonedElement.querySelectorAll('[class*="mb-6"]');
-            cards.forEach(card => {
+            cards.forEach((card) => {
               card.style.marginBottom = '16px';
             });
 
             // 調整 grid 佈局
             const grids = clonedElement.querySelectorAll('[class*="grid"]');
-            grids.forEach(grid => {
+            grids.forEach((grid) => {
               grid.style.gap = '8px';
             });
           }
