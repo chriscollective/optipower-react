@@ -94,11 +94,13 @@ export function FeeChart({ chartData, currentCapacity, optimalCapacity }) {
       },
       y: {
         beginAtZero: false,
+        min: 20000, // Y 軸從 20K 開始
         title: {
           display: true,
           text: '年度費用 (元)',
         },
         ticks: {
+          stepSize: 10000, // 間距 10K
           callback: (value) => `${(value / 1000).toFixed(0)}K`,
         },
       },
