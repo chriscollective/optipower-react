@@ -14,12 +14,12 @@ function App() {
 
   return (
     <div className="min-h-screen">
-      {/* 頁首 */}
-      <header className="sticky top-0 z-50 border-b border-gray-200/30">
-        {/* 漸層背景層 */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-50/95 via-white/90 to-slate-50/95 backdrop-blur-md"></div>
-        {/* 裝飾線條 */}
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-300/50 to-transparent"></div>
+      {/* 頁首 - iOS 液態玻璃風格 */}
+      <header className="sticky top-0 z-50">
+        {/* 液態玻璃背景 */}
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-2xl backdrop-saturate-150 border-b border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.05)]"></div>
+        {/* 頂部高光 */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
         {/* 內容 */}
         <div className="relative w-full px-4 py-5 text-center">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
