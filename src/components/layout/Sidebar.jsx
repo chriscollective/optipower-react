@@ -9,7 +9,7 @@ export function Sidebar() {
           <h2 className="font-bold text-gray-800 text-lg">🔖 網站說明</h2>
         </div>
 
-        <div className="p-5 space-y-6 text-sm text-gray-600 leading-relaxed max-h-[calc(100vh-140px)] overflow-y-auto">
+        <div className="p-5 space-y-6 text-sm text-gray-600 leading-relaxed">
           {/* 什麼是契約容量 */}
           <section>
             <h3 className="font-bold text-gray-800 mb-3 text-base">什麼是契約容量？</h3>
