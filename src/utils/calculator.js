@@ -124,9 +124,9 @@ export function findOptimalCapacity(monthlyDemands) {
   const maxDemand = Math.max(...validDemands);
   const minDemand = Math.min(...validDemands);
 
-  // 搜尋範圍：從最小需量的 40% 到最大需量的 150%
+  // 搜尋範圍：從最小需量的 40% 到最大需量的 170%
   const searchMin = Math.max(1, Math.floor(minDemand * 0.4));
-  const searchMax = Math.ceil(maxDemand * 1.5);
+  const searchMax = Math.ceil(maxDemand * 1.7);
 
   let optimalCapacity = searchMin;
   let minFee = Infinity;

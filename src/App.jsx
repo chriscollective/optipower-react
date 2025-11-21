@@ -5,7 +5,6 @@ import { CurrentStatus } from './components/results/CurrentStatus';
 import { OptimizationResult } from './components/results/OptimizationResult';
 import { FeeChart } from './components/results/FeeChart';
 import { IntroSection } from './components/content/IntroSection';
-import { FAQSection } from './components/content/FAQSection';
 import { Sidebar } from './components/layout/Sidebar';
 
 function App() {
@@ -87,9 +86,6 @@ function App() {
                 />
               </>
             )}
-
-            {/* FAQ 常見問題 */}
-            <FAQSection />
           </div>
 
           {/* 頁尾 */}
