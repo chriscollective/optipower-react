@@ -1,6 +1,6 @@
 // FAQ 常見問題區塊元件
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Card } from '../ui/Card';
 
 const faqs = [
@@ -23,18 +23,6 @@ const faqs = [
 
 function FAQItem({ question, answer, isOpen, onToggle }) {
   const contentRef = useRef(null);
-  const [height, setHeight] = useState(0);
-
-  // 測量內容高度以配合動畫
-  useEffect(() => {
-    if (contentRef.current) {
-      const resizeObserver = new ResizeObserver(() => {
-        setHeight(contentRef.current.scrollHeight);
-      });
-      resizeObserver.observe(contentRef.current);
-      return () => resizeObserver.disconnect();
-    }
-  }, []);
 
   return (
     <div className="border border-gray-200 rounded-lg mb-3 overflow-hidden">
@@ -53,16 +41,17 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {/* 滑動展開動畫容器 */}
+      {/* 滑動展開動畫容器 - 使用 grid 技巧實現平滑動畫 */}
       <div
-        className="overflow-hidden transition-[max-height] duration-300"
+        className="grid transition-[grid-template-rows] duration-300 ease-in-out"
         style={{
-          maxHeight: isOpen ? `${height}px` : '0px',
-          transitionTimingFunction: isOpen ? 'cubic-bezier(0.4, 0, 0.2, 1)' : 'cubic-bezier(0.4, 0, 1, 1)',
+          gridTemplateRows: isOpen ? '1fr' : '0fr',
         }}
       >
-        <div ref={contentRef} className="px-4 py-3 bg-white">
-          <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
+        <div className="overflow-hidden">
+          <div ref={contentRef} className="px-4 py-3 bg-white">
+            <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
+          </div>
         </div>
       </div>
     </div>
