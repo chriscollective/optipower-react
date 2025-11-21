@@ -1,30 +1,86 @@
+import { useCalculator } from './hooks/useCalculator';
+import { Card } from './components/ui/Card';
+import { CalculatorForm } from './components/form/CalculatorForm';
+import { CurrentStatus } from './components/results/CurrentStatus';
+import { OptimizationResult } from './components/results/OptimizationResult';
+import { FeeChart } from './components/results/FeeChart';
+
 function App() {
+  const calculator = useCalculator();
+
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* 頁首 */}
+      <header className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            OptiPower 契約容量最佳化計算器
+          </h1>
+          <p className="mt-2 text-gray-600">
+            輸入您的用電資料，找出最省錢的契約容量
+          </p>
+        </div>
+      </header>
+
       {/* 主內容 */}
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            OptiPower 契約容量最佳化計算器
-          </h1>
-          <p className="text-gray-600 mb-8">
-            專案初始化完成，準備進入 Phase 2 開發階段。
-          </p>
+          {/* 計算表單 */}
+          <Card title="輸入資料" className="mb-6">
+            <CalculatorForm
+              capacity={calculator.capacity}
+              setCapacity={calculator.setCapacity}
+              monthlyDemands={calculator.monthlyDemands}
+              updateDemand={calculator.updateDemand}
+              errors={calculator.errors}
+              warnings={calculator.warnings}
+              onSubmit={calculator.calculate}
+              onReset={calculator.reset}
+              isCalculating={calculator.isCalculating}
+              canCalculate={calculator.canCalculate}
+            />
+          </Card>
 
-          {/* 測試 Tailwind CSS */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Phase 1 完成項目
-            </h2>
-            <ul className="list-disc list-inside text-gray-600 space-y-1">
-              <li>✅ Vite + React 專案建立</li>
-              <li>✅ Tailwind CSS 設定</li>
-              <li>✅ ESLint + Prettier 設定</li>
-              <li>✅ 目錄結構建立</li>
-            </ul>
-          </div>
+          {/* 計算結果 */}
+          {calculator.results && (
+            <>
+              {/* 最佳化建議 */}
+              <OptimizationResult
+                currentCapacity={calculator.results.currentCapacity}
+                currentFee={calculator.results.currentFee}
+                optimalCapacity={calculator.results.optimalCapacity}
+                optimalFee={calculator.results.optimalFee}
+                savings={calculator.results.savings}
+                savingsRate={calculator.results.savingsRate}
+              />
+
+              {/* 費用分布圖 */}
+              <FeeChart
+                chartData={calculator.results.chartData}
+                currentCapacity={calculator.results.currentCapacity}
+                optimalCapacity={calculator.results.optimalCapacity}
+              />
+
+              {/* 目前狀況明細 */}
+              <CurrentStatus
+                capacity={calculator.results.currentCapacity}
+                totalFee={calculator.results.currentFee}
+                monthlyDetails={calculator.results.currentMonthlyDetails}
+              />
+            </>
+          )}
         </div>
       </main>
+
+      {/* 頁尾 */}
+      <footer className="bg-white border-t mt-12">
+        <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-500">
+          <p>OptiPower 契約容量最佳化計算器</p>
+          <p className="mt-1">
+            依據台電電價表計算，僅供參考
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
