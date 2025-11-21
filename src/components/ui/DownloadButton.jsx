@@ -93,7 +93,41 @@ export function DownloadButton({ targetId }) {
 
           const clonedElement = clonedDoc.getElementById(targetId);
           if (clonedElement) {
+            // 設定 PDF 專用樣式
+            clonedElement.style.padding = '20px';
+            clonedElement.style.maxWidth = '100%';
+            clonedElement.style.boxSizing = 'border-box';
+
             applyComputedStyles(clonedElement, element);
+
+            // 調整表格樣式以適應 PDF
+            const tables = clonedElement.querySelectorAll('table');
+            tables.forEach(table => {
+              table.style.fontSize = '10px';
+              table.style.width = '100%';
+              table.style.tableLayout = 'fixed';
+              table.style.borderCollapse = 'collapse';
+            });
+
+            // 調整表格儲存格
+            const cells = clonedElement.querySelectorAll('th, td');
+            cells.forEach(cell => {
+              cell.style.padding = '6px 4px';
+              cell.style.fontSize = '10px';
+              cell.style.wordBreak = 'break-word';
+            });
+
+            // 調整卡片間距
+            const cards = clonedElement.querySelectorAll('[class*="mb-6"]');
+            cards.forEach(card => {
+              card.style.marginBottom = '16px';
+            });
+
+            // 調整 grid 佈局
+            const grids = clonedElement.querySelectorAll('[class*="grid"]');
+            grids.forEach(grid => {
+              grid.style.gap = '8px';
+            });
           }
         },
       });
