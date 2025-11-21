@@ -15,7 +15,7 @@ function App() {
     <div className="min-h-screen">
       {/* 頁首 */}
       <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-5 text-center">
+        <div className="max-w-4xl mx-auto px-4 py-5 text-center lg:ml-[42rem]">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
             ⚡ 契約容量最佳化計算工具｜OptiPower
           </h1>
@@ -25,14 +25,21 @@ function App() {
         </div>
       </header>
 
-      {/* 主內容區域 - 側邊欄 + 主內容 */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* 左側側邊欄 */}
+      {/* 主內容區域 */}
+      <div className="flex">
+        {/* 左側固定側邊欄 */}
+        <div className="hidden lg:block fixed left-0 top-16 bottom-0 w-[40rem] p-4 overflow-y-auto">
           <Sidebar />
+        </div>
 
-          {/* 右側主內容 */}
-          <main className="flex-1 min-w-0">
+        {/* 右側主內容 - 置中 */}
+        <main className="flex-1 lg:ml-[40rem]">
+          <div className="max-w-4xl mx-auto px-4 py-8">
+            {/* 手機版側邊欄 */}
+            <div className="lg:hidden mb-6">
+              <Sidebar />
+            </div>
+
             {/* 介紹說明 */}
             <IntroSection />
 
@@ -83,21 +90,21 @@ function App() {
 
             {/* FAQ 常見問題 */}
             <FAQSection />
-          </main>
-        </div>
-      </div>
+          </div>
 
-      {/* 頁尾 */}
-      <footer className="bg-white/80 backdrop-blur-md border-t border-gray-200/50 mt-12">
-        <div className="container mx-auto px-4 py-6 text-center">
-          <p className="text-sm text-gray-500">
-            Copyright ©2025 Chris Du. All rights reserved.
-          </p>
-          <p className="text-xs text-gray-400 mt-1">
-            Made with ❤️ for Taiwan Power Users
-          </p>
-        </div>
-      </footer>
+          {/* 頁尾 */}
+          <footer className="bg-white/80 backdrop-blur-md border-t border-gray-200/50 mt-12">
+            <div className="max-w-4xl mx-auto px-4 py-6 text-center">
+              <p className="text-sm text-gray-500">
+                Copyright ©2025 Chris Du. All rights reserved.
+              </p>
+              <p className="text-xs text-gray-400 mt-1">
+                Made with ❤️ for Taiwan Power Users
+              </p>
+            </div>
+          </footer>
+        </main>
+      </div>
     </div>
   );
 }

@@ -2,8 +2,8 @@
 
 export function Sidebar() {
   return (
-    <aside className="w-full lg:w-[40rem] lg:flex-shrink-0">
-      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 sticky top-20">
+    <aside className="w-full">
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100">
         {/* 側邊欄標題 */}
         <div className="px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-slate-100 rounded-t-2xl">
           <h2 className="font-bold text-gray-800 text-lg">🔖 網站說明</h2>
