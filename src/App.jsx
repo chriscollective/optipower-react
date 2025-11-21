@@ -8,6 +8,7 @@ import { FeeChart } from './components/results/FeeChart';
 import { IntroSection } from './components/content/IntroSection';
 import { FAQSection } from './components/content/FAQSection';
 import { Sidebar } from './components/layout/Sidebar';
+import { DownloadButton } from './components/ui/DownloadButton';
 
 function App() {
   const calculator = useCalculator();
@@ -67,7 +68,7 @@ function App() {
 
             {/* 計算結果 */}
             {calculator.results && (
-              <>
+              <div id="pdf-content">
                 {/* 最佳化建議 */}
                 <OptimizationResult
                   currentCapacity={calculator.results.currentCapacity}
@@ -98,8 +99,11 @@ function App() {
                   totalFee={calculator.results.optimalFee}
                   monthlyDetails={calculator.results.optimalMonthlyDetails}
                 />
-              </>
+              </div>
             )}
+
+            {/* PDF 下載按鈕 - 只在有結果時顯示 */}
+            {calculator.results && <DownloadButton targetId="pdf-content" />}
 
             {/* FAQ 常見問題 */}
             <FAQSection />
