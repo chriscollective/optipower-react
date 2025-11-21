@@ -2,6 +2,7 @@ import { useCalculator } from './hooks/useCalculator';
 import { Card } from './components/ui/Card';
 import { CalculatorForm } from './components/form/CalculatorForm';
 import { CurrentStatus } from './components/results/CurrentStatus';
+import { OptimalStatus } from './components/results/OptimalStatus';
 import { OptimizationResult } from './components/results/OptimizationResult';
 import { FeeChart } from './components/results/FeeChart';
 import { IntroSection } from './components/content/IntroSection';
@@ -84,6 +85,13 @@ function App() {
                   capacity={calculator.results.currentCapacity}
                   totalFee={calculator.results.currentFee}
                   monthlyDetails={calculator.results.currentMonthlyDetails}
+                />
+
+                {/* 變更後契約狀況 */}
+                <OptimalStatus
+                  capacity={calculator.results.optimalCapacity}
+                  totalFee={calculator.results.optimalFee}
+                  monthlyDetails={calculator.results.optimalMonthlyDetails}
                 />
               </>
             )}
