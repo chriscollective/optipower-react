@@ -38,9 +38,9 @@ export function validateCapacity(capacity) {
 export function validateDemand(demand, month) {
   const value = Number(demand);
 
-  // 允許空值（表示該月無資料）
+  // 不允許空值，每個月份都必須填寫
   if (demand === '' || demand === null || demand === undefined) {
-    return { isValid: true, error: null, warning: null };
+    return { isValid: false, error: '請輸入需量', warning: null };
   }
 
   if (isNaN(value)) {
@@ -51,20 +51,20 @@ export function validateDemand(demand, month) {
     return { isValid: false, error: '需量不能為負數', warning: null };
   }
 
+  // 需量不得為 0
+  if (value === 0) {
+    return {
+      isValid: false,
+      error: '需量不得為 0',
+      warning: null,
+    };
+  }
+
   if (value > MAX_DEMAND) {
     return {
       isValid: false,
       error: `需量不能超過 ${MAX_DEMAND.toLocaleString()} kW`,
       warning: null,
-    };
-  }
-
-  // 警告：需量為 0 可能是未填寫
-  if (value === 0) {
-    return {
-      isValid: true,
-      error: null,
-      warning: '需量為 0，請確認是否正確',
     };
   }
 
@@ -98,10 +98,10 @@ export function validateMonthlyDemands(demands) {
     }
   }
 
-  // 檢查是否有足夠的數據
-  const hasData = validCount > 0;
-  if (!hasData && errors.length === 0) {
-    errors.push({ month: null, error: '請至少輸入一個月份的需量資料' });
+  // 檢查是否有足夠的數據（現在需要 12 個月都有資料）
+  const hasData = validCount === 12;
+  if (validCount < 12 && errors.length === 0) {
+    errors.push({ month: null, error: '請填寫所有 12 個月份的需量資料' });
   }
 
   return {

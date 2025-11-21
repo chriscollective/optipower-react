@@ -15,7 +15,7 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       {/* 頁首 */}
       <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 py-6 text-center">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
             ⚡ 契約容量最佳化計算工具｜OptiPower
           </h1>

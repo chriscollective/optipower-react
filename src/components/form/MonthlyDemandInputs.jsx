@@ -48,7 +48,7 @@ export function MonthlyDemandInputs({ values, onChange, errors = [] }) {
                 `}
                 placeholder="kW"
                 min="0"
-                step="0.1"
+                step="1"
               />
               {hasError && <p className="mt-1 text-xs text-red-600">{hasError}</p>}
             </div>

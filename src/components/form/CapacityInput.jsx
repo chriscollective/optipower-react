@@ -14,7 +14,7 @@ export function CapacityInput({ value, onChange, error }) {
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={`
-            w-full px-4 py-3 border rounded-lg shadow-sm
+            w-full px-4 py-3 pr-16 border rounded-lg shadow-sm
             focus:ring-2 focus:ring-blue-500 focus:border-blue-500
             transition-colors duration-200
             ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300'}
@@ -24,7 +24,9 @@ export function CapacityInput({ value, onChange, error }) {
           max="10000"
           step="1"
         />
-        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">kW</span>
+        <span className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+          kW
+        </span>
       </div>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
     </div>
