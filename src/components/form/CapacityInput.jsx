@@ -24,9 +24,12 @@ export function CapacityInput({ value, onChange, error }) {
           max="10000"
           step="1"
         />
-        <span className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-          kW
-        </span>
+        {/* 只在沒有輸入值時顯示 kW */}
+        {!value && (
+          <span className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+            kW
+          </span>
+        )}
       </div>
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
     </div>

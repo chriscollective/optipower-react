@@ -52,9 +52,17 @@ export function useCalculator() {
 
   /**
    * 更新契約容量
+   * 同時自動填入 12 個月份的預設值（契約容量的 0.8 倍）
    */
   const updateCapacity = useCallback((value) => {
     setCapacity(value);
+
+    // 當有輸入數值時，自動填入 12 個月份的預設值
+    const numValue = Number(value);
+    if (value !== '' && !isNaN(numValue) && numValue > 0) {
+      const defaultDemand = Math.round(numValue * 0.8);
+      setMonthlyDemands(Array(12).fill(String(defaultDemand)));
+    }
 
     // 清除容量錯誤
     setErrors((prev) => ({
