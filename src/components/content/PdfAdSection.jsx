@@ -1,11 +1,11 @@
 export function PdfAdSection() {
   return (
-    <section data-pdf-section="support" className="mt-4 relative z-10">
+    <section data-pdf-section="support" className="mt-4 isolate">
       {/* 扁平化廣告卡片，避免 PDF 另起一頁 */}
       <div className="rounded-xl bg-white px-6 py-5 text-slate-800 shadow-sm">
         <header className="flex flex-col gap-1">
-          <h1 className="text-blue-500">社區節能實驗室</h1>
-          <p className="text-xs text-slate-500 pt-1">
+          <h1 className="text-2xl text-blue-500">社區節能實驗室</h1>
+          <p className="text-sm text-slate-500 pt-1">
             有問題想問？需要專人協助？我們提供後續支援與完整代辦服務，協助您落實最佳化建議。
           </p>
         </header>
@@ -15,7 +15,7 @@ export function PdfAdSection() {
           {/* 左欄：服務定位 */}
           <div className="grid grid-rows-2 gap-3">
             <FormField label="服務項目" value="後續諮詢／契約容量代辦" className="h-full" />
-            <FormField label="服務對象" value="低壓用電戶、社區、店面" className="h-full" />
+            <FormField label="服務對象" value="低壓用電戶、社區" className="h-full" />
           </div>
 
           {/* 中欄：服務說明 */}
