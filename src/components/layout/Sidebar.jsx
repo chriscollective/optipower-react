@@ -5,7 +5,7 @@ export function Sidebar() {
     <aside className="w-full">
       <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100">
         {/* 側邊欄標題 */}
-        <div className="px-5 py-4 mt-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-slate-100 rounded-t-2xl">
+        <div className="px-5 py-4 mt-10 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-slate-100 rounded-t-2xl">
           <h2 className="font-bold text-gray-800 text-lg">🔖 網站說明</h2>
         </div>
 
@@ -109,7 +109,7 @@ export function Sidebar() {
             <p>
               因為站主接任了30年的老社區主委，發現電費頗高，花了很多時間研究，才明白其中原因。
               (如果當初社區管理人員早一點調整，30年的時間至少可以省下將近90萬的電費!)
-              希望藉由這個網站幫助更多人省錢!也練習與AI溝通的能力!
+              希望藉由這個網站幫助更多人省錢!
             </p>
           </section>
 
@@ -125,7 +125,7 @@ export function Sidebar() {
                 justakiss918@gmail.com
               </a>
             </p>
-            <p className="text-xs text-gray-500">網站最新更新日期: 2025/01/21</p>
+            <p className="text-xs text-gray-500">網站最新更新日期: 2025/11/24</p>
           </section>
         </div>
       </div>

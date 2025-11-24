@@ -9,6 +9,7 @@ import { IntroSection } from './components/content/IntroSection';
 import { FAQSection } from './components/content/FAQSection';
 import { Sidebar } from './components/layout/Sidebar';
 import { DownloadButton } from './components/ui/DownloadButton';
+import { PdfAdSection } from './components/content/PdfAdSection';
 
 function App() {
   const calculator = useCalculator();
@@ -26,6 +27,7 @@ function App() {
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
             ⚡ 契約容量最佳化計算工具｜OptiPower
           </h1>
+          <h2>社區節能實驗室</h2>
           <p className="mt-2 text-gray-600 text-sm md:text-base">
             專為台灣低壓電力用戶打造的免費電費最佳化試算
           </p>
@@ -107,6 +109,8 @@ function App() {
                     monthlyDetails={calculator.results.optimalMonthlyDetails}
                   />
                 </div>
+
+                <PdfAdSection />
               </div>
             )}
             {/* PDF 下載按鈕 - 只在有結果時顯示 */}
@@ -120,11 +124,9 @@ function App() {
           <footer className="bg-white/80 backdrop-blur-md border-t border-gray-200/50 mt-12">
             <div className="max-w-4xl mx-auto px-4 py-6 text-center">
               <p className="text-sm text-gray-500">
-                Copyright ©2025 Chris Du. All rights reserved.
+                Copyright ©2025 Chris Du 社區節能數據實驗室 All rights reserved.
               </p>
-              <p className="text-xs text-gray-400 mt-1">
-                Made with ❤️ for Taiwan Power Users
-              </p>
+              <p className="text-xs text-gray-400 mt-1">Made with ❤️ for Taiwan Power Users</p>
             </div>
           </footer>
         </main>

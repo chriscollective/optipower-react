@@ -15,6 +15,9 @@ export function OptimizationResult({
   const needsIncrease = optimalCapacity > currentCapacity;
   const needsDecrease = optimalCapacity < currentCapacity;
   const isOptimal = optimalCapacity === currentCapacity;
+  const monthlyAverageSavings = Math.round(savings / 12);
+  const formattedSavingsRate =
+    typeof savingsRate === 'number' ? `${savingsRate.toFixed(2)}%` : '0%';
 
   return (
     <Card title="最佳化建議" className="mb-6 animate-fadeIn">
@@ -78,7 +81,12 @@ export function OptimizationResult({
           </p>
           <p className="text-sm text-amber-600" data-pdf-spacing="monthly-savings">
             📆 平均每個月可節省金額：
-            <span className="font-bold">{Math.round(savings / 12).toLocaleString()} 元</span>
+            <span className="font-bold">{monthlyAverageSavings.toLocaleString()} 元</span>
+          </p>
+          <p className="mt-3 text-sm font-medium text-amber-700">
+            調整後可節省
+            <span className="mx-1 text-lg font-bold">{formattedSavingsRate}</span>
+            的基本電費
           </p>
         </div>
       )}

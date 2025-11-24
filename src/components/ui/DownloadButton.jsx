@@ -46,6 +46,31 @@ export function DownloadButton({ targetId }) {
           const styleSheets = clonedDoc.querySelectorAll('style, link[rel="stylesheet"]');
           styleSheets.forEach((sheet) => sheet.remove());
 
+          const ensureOptimizationStyle = () => {
+            if (clonedDoc.getElementById('pdf-optimization-style')) return;
+            const styleEl = clonedDoc.createElement('style');
+            styleEl.id = 'pdf-optimization-style';
+            styleEl.textContent = `
+              body {
+                background: #ffffff !important;
+              }
+              body::before {
+                display: none !important;
+              }
+
+              [data-pdf-section="optimization"],
+              [data-pdf-section="optimization"] * {
+                border: none !important;
+                border-color: transparent !important;
+                box-shadow: none !important;
+                outline: none !important;
+              }
+            `;
+            clonedDoc.head.appendChild(styleEl);
+          };
+
+          ensureOptimizationStyle();
+
           // 為克隆文檔中的所有元素應用內聯計算樣式
           const applyComputedStyles = (clonedEl, sourceEl) => {
             if (clonedEl.nodeType !== 1) return; // 只處理元素節點
@@ -158,6 +183,7 @@ export function DownloadButton({ targetId }) {
             clonedElement.style.width = '75%';
             clonedElement.style.margin = '0 auto';
             clonedElement.style.boxSizing = 'border-box';
+            clonedElement.style.backgroundColor = '#ffffff';
 
             applyComputedStyles(clonedElement, element);
 
@@ -169,6 +195,7 @@ export function DownloadButton({ targetId }) {
               header.style.marginBottom = '24px';
               header.style.padding = '16px 0';
               header.style.borderBottom = '1px solid #e5e7eb';
+              header.style.backgroundColor = '#ffffff';
               header.style.color = '#0f172a';
               header.style.fontFamily = 'sans-serif';
 
