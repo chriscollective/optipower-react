@@ -1,6 +1,6 @@
 export function PdfAdSection() {
   return (
-    <section data-pdf-section="support" className="mt-4 isolate">
+    <section data-pdf-section="support" className="mt-4 relative" style={{ zIndex: 1 }}>
       {/* 扁平化廣告卡片，避免 PDF 另起一頁 */}
       <div className="rounded-xl bg-white px-6 py-5 text-slate-800 shadow-sm">
         <header className="flex flex-col gap-1">
