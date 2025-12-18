@@ -27,7 +27,6 @@ function App() {
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
             ⚡ 契約容量最佳化計算工具｜OptiPower
           </h1>
-          <h2>社區節能實驗室</h2>
           <p className="mt-2 text-gray-600 text-sm md:text-base">
             專為台灣低壓電力用戶打造的免費電費最佳化試算
           </p>
