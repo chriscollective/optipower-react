@@ -9,7 +9,6 @@ import { IntroSection } from './components/content/IntroSection';
 import { FAQSection } from './components/content/FAQSection';
 import { Sidebar } from './components/layout/Sidebar';
 import { DownloadButton } from './components/ui/DownloadButton';
-import { PdfAdSection } from './components/content/PdfAdSection';
 
 function App() {
   const calculator = useCalculator();
@@ -109,7 +108,7 @@ function App() {
                   />
                 </div>
 
-                <PdfAdSection />
+                {/* <PdfAdSection /> */}
               </div>
             )}
             {/* PDF 下載按鈕 - 只在有結果時顯示 */}
