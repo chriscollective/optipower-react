@@ -125,7 +125,7 @@ export function Sidebar() {
                 justakiss918@gmail.com
               </a>
             </p>
-            <p className="text-xs text-gray-500">網站最新更新日期: 2025/11/24</p>
+            <p className="text-xs text-gray-500">網站最新更新日期: 2026/01/30</p>
           </section>
         </div>
       </div>
