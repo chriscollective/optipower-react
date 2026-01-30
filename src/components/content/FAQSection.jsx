@@ -27,11 +27,10 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
   // 根據開闔狀態調整高度以製造向下滑動動畫
   useEffect(() => {
     if (!contentRef.current) return;
-
     setHeight(isOpen ? contentRef.current.scrollHeight : 0);
   }, [isOpen]);
 
-  // 開啟時監聽視窗尺寸，避免字體換行造成高度錯誤
+  // 開啟時監聯視窗尺寸，避免字體換行造成高度錯誤
   useEffect(() => {
     if (!isOpen) return;
     if (typeof window === 'undefined') return;
@@ -54,7 +53,7 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
       >
         <span className="font-medium text-gray-800">{question}</span>
         <svg
-          className={`w-5 h-5 text-gray-500 flex-shrink-0 ml-2 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-gray-500 flex-shrink-0 ml-2 transition-transform duration-300 ease-in-out ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -63,10 +62,23 @@ function FAQItem({ question, answer, isOpen, onToggle }) {
         </svg>
       </button>
       <div
-        className={`overflow-hidden transition-[height,opacity] duration-400 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0'}`}
-        style={{ height }}
+        className="overflow-hidden"
+        style={{
+          height,
+          transition: 'height 350ms cubic-bezier(0.4, 0, 0.2, 1)',
+        }}
       >
-        <div ref={contentRef} className="px-4 py-3 bg-white">
+        <div
+          ref={contentRef}
+          className="px-4 py-3 bg-white"
+          style={{
+            opacity: isOpen ? 1 : 0,
+            transform: isOpen ? 'translateY(0)' : 'translateY(-8px)',
+            transition: isOpen
+              ? 'opacity 300ms 80ms ease-out, transform 300ms 80ms ease-out'
+              : 'opacity 200ms ease-in, transform 200ms ease-in',
+          }}
+        >
           <p className="text-sm text-gray-600 leading-relaxed">{answer}</p>
         </div>
       </div>
