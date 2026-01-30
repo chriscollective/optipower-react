@@ -1,4 +1,5 @@
 import { useCalculator } from './hooks/useCalculator';
+import { useVisitorCount } from './hooks/useVisitorCount';
 import { Card } from './components/ui/Card';
 import { CalculatorForm } from './components/form/CalculatorForm';
 import { CurrentStatus } from './components/results/CurrentStatus';
@@ -12,6 +13,7 @@ import { DownloadButton } from './components/ui/DownloadButton';
 
 function App() {
   const calculator = useCalculator();
+  const visitorCount = useVisitorCount();
 
   return (
     <div className="min-h-screen">
@@ -121,6 +123,11 @@ function App() {
           {/* 頁尾 */}
           <footer className="bg-white/80 backdrop-blur-md border-t border-gray-200/50 mt-12">
             <div className="max-w-4xl mx-auto px-4 py-6 text-center">
+              {visitorCount !== null && (
+                <p className="text-sm text-gray-500 mb-1">
+                  累積瀏覽人數：<span className="font-semibold text-gray-700">{visitorCount.toLocaleString()}</span>
+                </p>
+              )}
               <p className="text-sm text-gray-500">
                 Copyright ©2025 Chris Du All rights reserved.
               </p>
