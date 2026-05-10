@@ -11,6 +11,7 @@ import { IntroSection } from './components/content/IntroSection';
 import { FAQSection } from './components/content/FAQSection';
 import { Sidebar } from './components/layout/Sidebar';
 import { DownloadButton } from './components/ui/DownloadButton';
+import { PdfReport } from './components/pdf/PdfReport';
 
 function App() {
   const calculator = useCalculator();
@@ -70,54 +71,48 @@ function App() {
               />
             </Card>
 
-            {/* 計算結果 */}
+            {/* 計算結果（畫面顯示） */}
             {calculator.results && (
-              <div id="pdf-content">
-                {/* 最佳化建議 */}
-                <div data-pdf-section="optimization">
-                  <OptimizationResult
-                    currentCapacity={calculator.results.currentCapacity}
-                    currentFee={calculator.results.currentFee}
-                    optimalCapacity={calculator.results.optimalCapacity}
-                    optimalFee={calculator.results.optimalFee}
-                    savings={calculator.results.savings}
-                    savingsRate={calculator.results.savingsRate}
-                  />
-                </div>
-
-                {/* 費用分布圖 */}
-                <div data-pdf-section="chart">
-                  <FeeChart
-                    chartData={calculator.results.chartData}
-                    currentCapacity={calculator.results.currentCapacity}
-                    optimalCapacity={calculator.results.optimalCapacity}
-                  />
-                </div>
-
-                {/* 目前狀況明細 */}
-                <div data-pdf-section="current-status">
-                  <CurrentStatus
-                    capacity={calculator.results.currentCapacity}
-                    totalFee={calculator.results.currentFee}
-                    monthlyDetails={calculator.results.currentMonthlyDetails}
-                  />
-                </div>
-
-                {/* 變更後契約狀況 */}
-                <div data-pdf-section="optimal-status">
-                  <OptimalStatus
-                    capacity={calculator.results.optimalCapacity}
-                    totalFee={calculator.results.optimalFee}
-                    monthlyDetails={calculator.results.optimalMonthlyDetails}
-                  />
-                </div>
-
-                {/* <PdfAdSection /> */}
-              </div>
+              <>
+                <OptimizationResult
+                  currentCapacity={calculator.results.currentCapacity}
+                  currentFee={calculator.results.currentFee}
+                  optimalCapacity={calculator.results.optimalCapacity}
+                  optimalFee={calculator.results.optimalFee}
+                  savings={calculator.results.savings}
+                  savingsRate={calculator.results.savingsRate}
+                />
+                <FeeChart
+                  chartData={calculator.results.chartData}
+                  currentCapacity={calculator.results.currentCapacity}
+                  optimalCapacity={calculator.results.optimalCapacity}
+                />
+                <CurrentStatus
+                  capacity={calculator.results.currentCapacity}
+                  totalFee={calculator.results.currentFee}
+                  monthlyDetails={calculator.results.currentMonthlyDetails}
+                />
+                <OptimalStatus
+                  capacity={calculator.results.optimalCapacity}
+                  totalFee={calculator.results.optimalFee}
+                  monthlyDetails={calculator.results.optimalMonthlyDetails}
+                />
+              </>
             )}
-            {/* PDF 下載按鈕 - 只在有結果時顯示 */}
+
+            {/* PDF 下載按鈕 + offscreen 隱藏的 PDF 報表（兩頁） */}
             {calculator.results && (
-              <DownloadButton targetId="pdf-content" onDownload={incrementDownload} />
+              <>
+                <DownloadButton onDownload={incrementDownload} />
+                <PdfReport
+                  results={calculator.results}
+                  dateLabel={new Date().toLocaleDateString('zh-TW', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                  })}
+                />
+              </>
             )}
 
             {/* FAQ 常見問題 */}
