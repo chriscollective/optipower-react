@@ -9,14 +9,12 @@ export function IntroSection() {
         {/* 介紹文字 */}
         <p className="text-gray-600 mb-4">
           只要輸入近 12 個月的最高需量，OptiPower
-          就能即時計算出最省錢的契約容量，並估算每年可節省的基本電費與潛在罰款。適合社區大樓管理委員會、企業管理部門，以及所有想降低固定用電成本的用戶。
+          就能即時計算出最省錢的契約容量，並估算每年可節省的基本電費與潛在罰款。適合社區大樓管理委員會。
         </p>
 
         {/* 為什麼需要重新檢視契約容量 */}
         <div className="bg-red-50 rounded-lg p-4 mb-4">
-          <h3 className="text-base font-medium text-red-800 mb-2">
-            為什麼需要重新檢視契約容量？
-          </h3>
+          <h3 className="text-base font-medium text-red-800 mb-2">為什麼需要重新檢視契約容量？</h3>
           <ul className="text-sm text-red-700 space-y-1">
             <li>• 契約容量設定過高，等同每月多繳固定電費。</li>
             <li>• 夏月與非夏月用電差異大，容易在淡季造成資源浪費。</li>

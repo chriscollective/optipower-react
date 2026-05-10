@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 專案簡介
 
-OptiPower 是一個給台灣「低壓電力／非時間電價」用戶使用的契約容量最佳化試算工具（社區大樓、中小企業）。使用者輸入過去 12 個月最高需量與目前契約容量，工具透過暴力搜尋找出年度基本電費最低的契約容量，並產生比較圖表與 PDF 報告。
+OptiPower 是一個給台灣「低壓電力／非時間電價／非營業用」用戶使用的契約容量最佳化試算工具，主要服務社區大樓管理委員會。**目標客群刻意縮窄到社區大樓**——因為計算公式不適用於營業用電（中小企業若是 office-use 才適合，零售/餐飲等營業場所請用台電官方工具）。使用者輸入過去 12 個月最高需量與目前契約容量，工具透過暴力搜尋找出年度基本電費最低的契約容量，並產生比較圖表與 PDF 報告。
 
 線上版本：**https://www.optipower.tw**（自訂網域；裸網域 `optipower.tw` 會 307 轉到 www）。注意 `optipower.vercel.app` **不是**這個專案的網址，不要對使用者提到這個網址。Vercel 內部專案 ID 是 `chris-projects-1659af4e/optipower-react`。
 
