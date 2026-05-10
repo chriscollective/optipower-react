@@ -39,6 +39,13 @@ npm run preview   # 預覽 build 後的 dist/
 
 `src/lib/firebase.js` 的 `firebaseConfig` 包含明文 API key——**這是 Firebase web SDK 的正常用法**，安全性靠 security rules 控制，不是秘密。掃描工具可能會誤報，不要把它移到環境變數。
 
+**計費方案：Spark（免費版），刻意不啟用計費**。
+- 財務風險 = 0（連信用卡都沒綁）
+- Trade-off：quota 用完時 Firebase 寫入會 silent fail（已被 try/catch 處理），使用者看到的功能不受影響——只有後台統計會暫停累積到下個月 reset
+- **不要為了任何功能升級 Blaze**，除非有清楚財務風險評估
+- Cloud Functions、App Check Enterprise 模式等功能在 Spark 不支援——若需要要重新評估
+- 因此 GCP budget alert 也不需要設（沒帳單可警示）
+
 #### Realtime DB schema
 
 ```
