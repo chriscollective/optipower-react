@@ -8,6 +8,7 @@ import {
   calculateSavings,
 } from '../utils/calculator';
 import { validateAllInputs } from '../utils/validators';
+import { recordCalculation } from '../lib/stats';
 
 /**
  * 計算器 Hook
@@ -148,6 +149,16 @@ export function useCalculator() {
 
       // 搜尋範圍（用於參考）
       searchRange: optimal.searchRange,
+    });
+
+    // 後台統計（不擋 UI、失敗不影響使用者）
+    recordCalculation({
+      currentCapacity: capacityNum,
+      currentFee: currentResult.totalFee,
+      optimalCapacity: optimal.optimalCapacity,
+      optimalFee: optimal.minFee,
+      savings: savings.savings,
+      savingsRate: savings.savingsRate,
     });
 
     setIsCalculating(false);

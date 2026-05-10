@@ -1,5 +1,6 @@
 import { useCalculator } from './hooks/useCalculator';
 import { useVisitorCount } from './hooks/useVisitorCount';
+import { useDownloadCount } from './hooks/useDownloadCount';
 import { Card } from './components/ui/Card';
 import { CalculatorForm } from './components/form/CalculatorForm';
 import { CurrentStatus } from './components/results/CurrentStatus';
@@ -14,6 +15,7 @@ import { DownloadButton } from './components/ui/DownloadButton';
 function App() {
   const calculator = useCalculator();
   const visitorCount = useVisitorCount();
+  const { count: downloadCount, increment: incrementDownload } = useDownloadCount();
 
   return (
     <div className="min-h-screen">
@@ -114,7 +116,9 @@ function App() {
               </div>
             )}
             {/* PDF 下載按鈕 - 只在有結果時顯示 */}
-            {calculator.results && <DownloadButton targetId="pdf-content" />}
+            {calculator.results && (
+              <DownloadButton targetId="pdf-content" onDownload={incrementDownload} />
+            )}
 
             {/* FAQ 常見問題 */}
             <FAQSection />
@@ -125,7 +129,19 @@ function App() {
             <div className="max-w-4xl mx-auto px-4 py-6 text-center">
               {visitorCount !== null && (
                 <p className="text-sm text-gray-500 mb-1">
-                  累積瀏覽人數：<span className="font-semibold text-gray-700">{visitorCount.toLocaleString()}</span>
+                  累積瀏覽人數：
+                  <span className="font-semibold text-gray-700">
+                    {visitorCount.toLocaleString()}
+                  </span>
+                </p>
+              )}
+              {downloadCount !== null && downloadCount > 0 && (
+                <p className="text-sm text-gray-500 mb-1">
+                  累積下載報告：
+                  <span className="font-semibold text-gray-700">
+                    {downloadCount.toLocaleString()}
+                  </span>{' '}
+                  次
                 </p>
               )}
               <p className="text-sm text-gray-500">

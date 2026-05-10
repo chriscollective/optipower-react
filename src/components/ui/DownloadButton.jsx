@@ -12,7 +12,7 @@ const PDF_SECTION_PADDING = 16; // 每個區塊上下額外空白 (px)
 const PDF_IMAGE_TYPE = 'JPEG';
 const PDF_IMAGE_QUALITY = 1.2;
 
-export function DownloadButton({ targetId }) {
+export function DownloadButton({ targetId, onDownload }) {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleDownload = async () => {
@@ -424,6 +424,9 @@ export function DownloadButton({ targetId }) {
 
       // 下載 PDF
       pdf.save(`OptiPower_契約容量最佳化報告_${fileDateStr}.pdf`);
+
+      // PDF 成功生成後才計數，失敗的下載不算
+      onDownload?.();
     } catch (error) {
       console.error('PDF 生成失敗:', error);
       alert('PDF 生成失敗，請稍後再試');

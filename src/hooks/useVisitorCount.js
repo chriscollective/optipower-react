@@ -1,26 +1,21 @@
 // 瀏覽人數計數器 Hook
 import { useEffect, useState } from 'react';
-import { ref, onValue, runTransaction } from 'firebase/database';
-import { db } from '../lib/firebase';
+import { watchCounter, incrementCounter } from '../lib/counters';
+
+const COUNTER_PATH = 'visitorCount';
+const SESSION_KEY = 'optipower_visitor_counted';
 
 export function useVisitorCount() {
   const [count, setCount] = useState(null);
 
   useEffect(() => {
-    const countRef = ref(db, 'visitorCount');
-
     // 同一 session 只計數一次
-    if (!sessionStorage.getItem('counted')) {
-      runTransaction(countRef, (current) => (current || 0) + 1);
-      sessionStorage.setItem('counted', '1');
+    if (!sessionStorage.getItem(SESSION_KEY)) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      incrementCounter(COUNTER_PATH);
     }
 
-    // 即時監聽計數值
-    const unsubscribe = onValue(countRef, (snapshot) => {
-      setCount(snapshot.val() || 0);
-    });
-
-    return () => unsubscribe();
+    return watchCounter(COUNTER_PATH, setCount);
   }, []);
 
   return count;
