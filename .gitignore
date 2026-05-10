@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# 本機產生的 gstack 安全報告，不上 GitHub
+.gstack/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
