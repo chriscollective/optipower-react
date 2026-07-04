@@ -2,6 +2,9 @@
 
 /* 全域字體與平滑渲染 */
 html {
+  /* 根字型放大至 18px（預設 16px，約 +12.5%）。
+     Tailwind 文字大小以 rem 為單位，調整此處即可等比例放大全站字型 */
+  font-size: 18px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
