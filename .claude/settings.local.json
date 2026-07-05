@@ -17,5 +17,8 @@
     ],
     "deny": [],
     "ask": []
+  },
+  "enabledPlugins": {
+    "vercel-plugin@vercel-vercel-plugin": true
   }
 }
