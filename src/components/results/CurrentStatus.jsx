@@ -52,7 +52,11 @@ export function CurrentStatus({ capacity, totalFee, monthlyDetails }) {
               <th className="text-left py-3 px-3 font-semibold text-gray-600">月份</th>
               <th className="text-right py-3 px-3 font-semibold text-gray-600">需量</th>
               <th className="text-right py-3 px-3 font-semibold text-gray-600">基本費</th>
-              <th className="text-right py-3 px-3 font-semibold text-gray-600">超約費</th>
+              <th className="text-right py-3 px-3 font-semibold text-gray-600">
+                超約
+                <br className="sm:hidden" />
+                附加費用
+              </th>
               <th className="text-right py-3 px-3 font-semibold text-gray-600">合計</th>
             </tr>
           </thead>

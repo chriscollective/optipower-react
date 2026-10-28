@@ -1,5 +1,5 @@
 // PDF 第 2 頁：12 個月「目前 vs 建議」逐月對照表（7 欄、雙列表頭）
-// 把基本電費與罰款拆開顯示，讓使用者能看到「某幾個月被罰也仍划算」的真相
+// 把基本電費與超約附加費用拆開顯示，讓使用者能看到「某幾個月超約也仍划算」的真相
 import { MONTH_NAMES } from '../../utils/constants';
 
 const STYLES = {
@@ -180,7 +180,7 @@ export function PdfPageTwo({ results, dateLabel }) {
         </p>
       </div>
 
-      <h2 style={STYLES.sectionLabel}>12 個月明細（基本電費 + 罰款分列）</h2>
+      <h2 style={STYLES.sectionLabel}>12 個月明細（基本電費 + 超約附加費用分列）</h2>
       <table style={STYLES.table}>
         <colgroup>
           <col style={{ width: '8%' }} />
@@ -213,9 +213,9 @@ export function PdfPageTwo({ results, dateLabel }) {
           </tr>
           <tr>
             <th style={STYLES.thLeaf}>基本電費</th>
-            <th style={{ ...STYLES.thLeaf, ...STYLES.tdGroupBorder }}>罰款</th>
+            <th style={{ ...STYLES.thLeaf, ...STYLES.tdGroupBorder }}>超約附加費用</th>
             <th style={STYLES.thLeaf}>基本電費</th>
-            <th style={{ ...STYLES.thLeaf, ...STYLES.tdGroupBorder }}>罰款</th>
+            <th style={{ ...STYLES.thLeaf, ...STYLES.tdGroupBorder }}>超約附加費用</th>
           </tr>
         </thead>
         <tbody>
@@ -294,12 +294,12 @@ export function PdfPageTwo({ results, dateLabel }) {
           基本電費 NT$ {fmt(sums.currentBase)}
           {sums.currentPenalty > 0 ? (
             <>
-              {' + 罰款 '}
+              {' + 超約附加費用 '}
               <span style={STYLES.summaryRed}>NT$ {fmt(sums.currentPenalty)}</span>
               {`（${overMonthsCurrent} 個月）`}
             </>
           ) : (
-            <>（無罰款）</>
+            <>（無超約附加費用）</>
           )}
           {' ＝ '}
           <span style={STYLES.summaryHighlight}>NT$ {fmt(totalCurrent)}</span>
@@ -309,28 +309,29 @@ export function PdfPageTwo({ results, dateLabel }) {
           基本電費 NT$ {fmt(sums.optimalBase)}
           {sums.optimalPenalty > 0 ? (
             <>
-              {' + 罰款 '}
+              {' + 超約附加費用 '}
               <span style={STYLES.summaryRed}>NT$ {fmt(sums.optimalPenalty)}</span>
               {`（${overMonthsOptimal} 個月，紅底列）`}
             </>
           ) : (
-            <>（無罰款）</>
+            <>（無超約附加費用）</>
           )}
           {' ＝ '}
           <span style={STYLES.summaryHighlight}>NT$ {fmt(totalOptimal)}</span>
         </div>
         {sums.optimalPenalty > 0 && (
           <div style={{ marginTop: '6px', fontStyle: 'italic' }}>
-            ※ 建議方案會在 {overMonthsOptimal} 個月被罰款共 NT$ {fmt(sums.optimalPenalty)}，
-            但因為基本電費省下 NT$ {fmt(sums.currentBase - sums.optimalBase)}，整體仍划算。
+            ※ 建議方案會在 {overMonthsOptimal} 個月產生超約附加費用，共 NT${' '}
+            {fmt(sums.optimalPenalty)}，但因為基本電費省下 NT${' '}
+            {fmt(sums.currentBase - sums.optimalBase)}，整體仍划算。
           </div>
         )}
       </div>
 
       <div style={STYLES.footnote}>
         欄位說明：「基本電費」＝契約容量 × 費率（夏月 236.2、非夏月 173.2
-        元/kW）。「罰款」＝超過契約容量部分加倍計算（10% 內 2 倍、10% 外 3 倍）。
-        「月差額」正值（綠）＝建議方案該月較省；負值（紅）＝建議方案該月反而較貴。紅底列＝建議契約下會超約並產生罰款的月份。
+        元/kW）。「超約附加費用」＝超過契約容量部分加倍計算（10% 內 2 倍、10% 外 3 倍）。
+        「月差額」正值（綠）＝建議方案該月較省；負值（紅）＝建議方案該月反而較貴。紅底列＝建議契約下會超約並產生超約附加費用的月份。
       </div>
       <div style={STYLES.pageNumber}>第 2 頁 / 共 2 頁 · OptiPower www.optipower.tw</div>
     </div>

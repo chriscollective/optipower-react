@@ -185,7 +185,7 @@ export function PdfPageOne({ results, dateLabel }) {
 
       <div style={STYLES.footnote}>
         本計算依據台電「低壓電力 · 非時間電價」費率：非夏月 173.2 元/kW、夏月（6–9 月）236.2 元/kW；
-        超約罰款 10% 以內 2 倍、10% 以上 3 倍。試算結果僅供參考，實際以台電帳單為準。
+        超約附加費用 10% 以內 2 倍、10% 以上 3 倍。試算結果僅供參考，實際以台電帳單為準。
       </div>
       <div style={STYLES.pageNumber}>第 1 頁 / 共 2 頁 · OptiPower www.optipower.tw</div>
     </div>

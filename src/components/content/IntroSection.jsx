@@ -9,7 +9,7 @@ export function IntroSection() {
         {/* 介紹文字 */}
         <p className="text-gray-600 mb-4">
           只要輸入近 12 個月的最高需量，OptiPower
-          就能即時計算出最省錢的契約容量，並估算每年可節省的基本電費與潛在罰款。適合社區大樓管理委員會。
+          就能即時計算出最省錢的契約容量，並估算每年可節省的基本電費與潛在超約附加費用。適合社區大樓管理委員會。
         </p>
 
         {/* 為什麼需要重新檢視契約容量 */}
@@ -18,7 +18,7 @@ export function IntroSection() {
           <ul className="text-sm text-red-700 space-y-1">
             <li>• 契約容量設定過高，等同每月多繳固定電費。</li>
             <li>• 夏月與非夏月用電差異大，容易在淡季造成資源浪費。</li>
-            <li>• 未預估到尖峰用電時的罰款，導致被動支出增加。</li>
+            <li>• 未預估到尖峰用電時的超約附加費用，導致被動支出增加。</li>
             <li>• 台電申請流程繁雜，缺乏透明的計算依據。</li>
           </ul>
         </div>
@@ -28,7 +28,7 @@ export function IntroSection() {
           <h3 className="text-base font-medium text-green-800 mb-2">OptiPower 能帶來的價值</h3>
           <ul className="text-sm text-green-700 space-y-1">
             <li>• 即時呈現不同契約容量下的年費用比較。</li>
-            <li>• 自動比對浪費與罰款，快速找到最佳平衡點。</li>
+            <li>• 自動比對浪費與超約附加費用，快速找到最佳平衡點。</li>
             <li>• 清楚的圖表與報表，協助向住戶或主管說明決策依據。</li>
             <li>• 全中文介面，符合台灣電價制與低壓電力規範。</li>
           </ul>

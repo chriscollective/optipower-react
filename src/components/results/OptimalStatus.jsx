@@ -52,7 +52,11 @@ export function OptimalStatus({ capacity, totalFee, monthlyDetails }) {
               <th className="text-left py-3 px-3 font-semibold text-emerald-700">月份</th>
               <th className="text-right py-3 px-3 font-semibold text-emerald-700">需量</th>
               <th className="text-right py-3 px-3 font-semibold text-emerald-700">基本費</th>
-              <th className="text-right py-3 px-3 font-semibold text-emerald-700">超約費</th>
+              <th className="text-right py-3 px-3 font-semibold text-emerald-700">
+                超約
+                <br className="sm:hidden" />
+                附加費用
+              </th>
               <th className="text-right py-3 px-3 font-semibold text-emerald-700">合計</th>
             </tr>
           </thead>
